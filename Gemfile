@@ -6,6 +6,9 @@ ruby "3.2.4"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8", ">= 7.0.8.4"
 
+# has_secure_passwordを追加するためのgem
+gem "bcrypt", "3.1.18"
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -71,5 +74,10 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-
+  gem "webdrivers",               "5.2.0"
+  gem "rails-controller-testing", "1.0.5"
+  gem "minitest",                 "5.18.0"
+  gem "minitest-reporters",       "1.6.0"
+  gem "guard",                    "2.18.0"
+  gem "guard-minitest",           "2.4.6"
 end
