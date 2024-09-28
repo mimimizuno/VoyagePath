@@ -1,12 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# one:
-#   user_name: MyString
-#   email: MyString
-#   goal: MyString
-#   goal_due_date: 2024-09-26 04:10:10
-#   level: 1
-#   experience_points: 1
+michael:
+  user_name: Micael Example
+  email: micael@example.com
+  goal: Do my best!
+  goal_due_date: 2024-09-26 04:10:10
+  level: 1
+  experience_points: 1
+  password_digest: <%= User.digest('password') %>
 
 # two:
 #   user_name: MyString
