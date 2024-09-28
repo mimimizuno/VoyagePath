@@ -9,9 +9,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    # ストロングパラメータを指定
+    # Strong Parameterを指定
     @user = User.new(user_params)
     if @user.save
+      reset_session
+      log_in @user
       flash[:success] = "Welcome to VoyagePath!!"
       redirect_to @user
     else
@@ -33,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   private
-
+    # Strong Parameter設定
     def user_params
       params.require(:user).permit(:user_name, :email, :password, :password_confirmation)
     end
