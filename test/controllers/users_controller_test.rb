@@ -6,6 +6,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get show" do
+    user = users(:michael)
+    get user_path(user)
+    assert_response :success
+  end
+
   test "should get edit" do
     user = users(:michael)
     get edit_user_path(user)
