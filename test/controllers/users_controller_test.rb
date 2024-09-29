@@ -5,4 +5,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get signup_path
     assert_response :success
   end
+
+  test "should get edit" do
+    user = users(:michael)
+    get edit_user_path(user)
+    assert_response :success
+  end
 end

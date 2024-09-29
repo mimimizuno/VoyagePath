@@ -26,17 +26,34 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
+    if @user.update(user_profile_params)
+      puts @user.errors.full_messages
+      flash[:success] = "Profile Updated!"
+      redirect_to @user
+    else
+      puts @user.errors.full_messages
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
   end
 
   private
-    # Strong Parameter設定
+
+    # Strong Parameter設定（ログイン用）
     def user_params
       params.require(:user).permit(:user_name, :email, :password, :password_confirmation)
     end
+
+    # Strong Prameter設定（プロフィール更新用）
+    def user_profile_params
+      params.require(:user).permit(:user_name, :goal, :goal_due_date)
+    end
+
 end
