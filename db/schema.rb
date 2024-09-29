@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_28_160138) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_29_062538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_28_160138) do
     t.string "user_name"
     t.string "email"
     t.string "goal"
-    t.time "goal_due_date"
+    t.date "goal_due_date"
     t.integer "level"
     t.integer "experience_points"
     t.datetime "created_at", null: false
