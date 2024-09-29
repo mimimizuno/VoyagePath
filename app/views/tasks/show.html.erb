@@ -1,0 +1,25 @@
+<% provide(:title, 'todo details') %>
+<h1>Task Details</h1>
+
+<p>
+  <strong>Title:</strong>
+  <%= @task.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<p>
+  <strong>Due Date:</strong>
+  <%= @task.due_date %>
+</p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @task.completed ? 'Yes' : 'No' %>
+</p>
+
+<%= link_to 'Edit', edit_user_task_path(@user, @task) %> |
+<%= link_to 'Back', user_tasks_path(@user) %>
