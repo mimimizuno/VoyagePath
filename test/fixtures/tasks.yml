@@ -1,1 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: "Sample Task 1"
+  description: "This is the first sample task."
+  due_date: <%= Date.today %>
+  repetition: '{}'
+  completed: false
+  user: michael
+
+two:
+  title: "Sample Task 2"
+  description: "This is the second sample task."
+  due_date: <%= Date.today + 1 %>
+  repetition: '{}'
+  completed: true
+  user: michael
