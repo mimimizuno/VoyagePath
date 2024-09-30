@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  avatar_name: testAvatar
+  image_url: MyString
+  string: MyString
+  required_level: MyString
+  integer: MyString
+
+# two:
+#   avatar_name: MyString
+#   image_url: MyString
+#   string: MyString
+#   required_level: MyString
+#   integer: MyString

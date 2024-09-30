@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_30_074530) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_30_084651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "avatars", force: :cascade do |t|
+    t.string "avatar_name", null: false
+    t.string "image_url", null: false
+    t.integer "required_level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
@@ -26,6 +34,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_074530) do
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
+  create_table "user_avatars", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "avatar_id", null: false
+    t.boolean "is_active", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["avatar_id"], name: "index_user_avatars_on_avatar_id"
+    t.index ["user_id"], name: "index_user_avatars_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "user_name"
     t.string "email"
@@ -37,9 +55,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_30_074530) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "remember_digest"
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "tasks", "users"
+  add_foreign_key "user_avatars", "avatars"
+  add_foreign_key "user_avatars", "users"
 end
