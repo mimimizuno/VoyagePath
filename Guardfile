@@ -41,14 +41,14 @@ guard :minitest, all_on_start: false do
   watch('app/controllers/account_activations_controller.rb') do
     'test/integration/users_signup_test.rb'
   end
-  watch(%r{app/views/users/*}) do
-    resource_tests('users') +
-    ['test/integration/microposts_interface_test.rb']
-  end
-  watch('app/controllers/relationships_controller.rb') do
-    ['test/controllers/relationships_controller_test.rb',
-     'test/integration/following_test.rb']
-  end
+  # watch(%r{app/views/users/*}) do
+  #   resource_tests('users') +
+  #   ['test/integration/microposts_interface_test.rb']
+  # end
+  # watch('app/controllers/relationships_controller.rb') do
+  #   ['test/controllers/relationships_controller_test.rb',
+  #    'test/integration/following_test.rb']
+  # end
 end
 
 # 指定のリソースに対応する統合テストを返す

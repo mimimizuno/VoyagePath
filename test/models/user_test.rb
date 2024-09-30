@@ -9,8 +9,6 @@ class UserTest < ActiveSupport::TestCase
       email: "user@example.com",
       goal: "yusho",
       goal_due_date: "2024-09-26 04:10:10",
-      level: 1,
-      experience_points: 1,
       password: "testtest",
       password_confirmation: "testtest"
     )
@@ -68,6 +66,23 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = "a" * 5
     assert_not @user.valid?
   end
+
+  # levelの初期値チェック
+  test "level should default to 1" do
+    assert_equal 1, @user.level
+  end
+
+  # experience_pointsの初期値チェック
+  test "experiece_points should default to 0" do
+    assert_equal 0, @user.experience_points
+  end
+
+  # goalが256文字以上だとエラー
+  test "goal should not be too long" do
+    @user.goal = "a" * 256
+    assert_not @user.valid?
+  end
+
 
   # 記憶ダイジェストが無効の場合のテスト
   test "authenticated? should return false for a user with nil digest" do

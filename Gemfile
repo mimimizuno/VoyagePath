@@ -9,6 +9,10 @@ gem "rails", "~> 7.0.8", ">= 7.0.8.4"
 # has_secure_passwordを追加するためのgem
 gem "bcrypt", "3.1.18"
 
+# add pagination
+gem "will_paginate"
+gem "will_paginate-bootstrap-style"
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -54,6 +58,8 @@ gem "sassc-rails"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  # generate seed file
+  gem "faker"
 end
 
 group :development do
