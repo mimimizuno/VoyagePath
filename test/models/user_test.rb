@@ -77,6 +77,13 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, @user.experience_points
   end
 
+  # goalが256文字以上だとエラー
+  test "goal should not be too long" do
+    @user.goal = "a" * 256
+    assert_not @user.valid?
+  end
+
+
   # 記憶ダイジェストが無効の場合のテスト
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?('')
