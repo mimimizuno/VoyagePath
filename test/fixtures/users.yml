@@ -7,6 +7,7 @@ michael:
   goal_due_date: <%= Date.today %>
   level: 1
   experience_points: 1
+  admin: true
   password_digest: <%= User.digest('password') %>
 
 john:

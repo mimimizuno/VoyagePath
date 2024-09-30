@@ -5,6 +5,7 @@ User.create!(user_name: "sososo",
              password_confirmation: "password",
              goal: "Do my best",
              goal_due_date: Date.today,
+             admin: true
             )
 
 # 追加のユーザーをまとめて生成する
