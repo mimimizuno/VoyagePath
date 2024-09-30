@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
 
   def index
-    @users = User.all
+    # pagination指定 1ページにつき25ユーザー
+    @users = User.paginate(page: params[:page], per_page: 25 )
   end
   
   def new
@@ -32,11 +35,11 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_profile_params)
-      puts @user.errors.full_messages
+      # puts @user.errors.full_messages
       flash[:success] = "Profile Updated!"
       redirect_to @user
     else
-      puts @user.errors.full_messages
+      # puts @user.errors.full_messages
       render 'edit', status: :unprocessable_entity
     end
   end
@@ -55,5 +58,22 @@ class UsersController < ApplicationController
     def user_profile_params
       params.require(:user).permit(:user_name, :goal, :goal_due_date)
     end
+
+  # before filters
+
+  # ログイン済みユーザーかどうかを確認
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in!"
+      redirect_to login_url, status: :see_other
+    end
+  end
+
+  # 正しいユーザーかどうかを確認
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url, status: :see_other) unless current_user?(@user)
+  end
 
 end
