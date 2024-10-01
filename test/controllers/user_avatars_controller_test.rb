@@ -24,6 +24,6 @@ class UserAvatarsControllerTest < ActionDispatch::IntegrationTest
   test "should update active avatar via radio button" do
     put user_user_avatar_path(@user, @user_avatar), params: { avatar_id: @avatar.id }
     assert @user.user_avatars.find_by(avatar_id: @avatar.id).is_active
-    assert_redirected_to user_user_avatars_path(@user)
+    assert_redirected_to user_path(@user)
   end
 end

@@ -1,3 +1,10 @@
 <% provide(:title, 'Profile') %>
 <%= @user.user_name %>, <%= @user.email %>, <%= @user.goal %>, <%= @user.goal_due_date %>
 ,<%= @user.level %>, <%= @user.experience_points %>
+
+<% if @user.active_avatar %>
+  <p>Active Avatar: <%= @user.active_avatar.avatar_name %></p>
+  <%= image_tag @user.active_avatar.image_path %>
+<% else %>
+  <p>No active avatar set.</p>
+<% end %>

@@ -51,6 +51,12 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  # アクティブなアバターを取得
+  def active_avatar
+    user_avatars.find_by(is_active: true)&.avatar
+  end
+
+  # before action
   # レベル1のアバターを獲得する
   def add_level_1_avatar
     level_1_avatar = Avatar.find_by(required_level: 1)
