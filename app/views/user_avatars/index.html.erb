@@ -1,13 +1,13 @@
 <h1>My Avatars</h1>
-<ul>
-  <% @avatars.each do |avatar| %>
-    <li>
-      <%= avatar.avatar_name %> (Level Required: <%= avatar.required_level %>)
-      <% if avatar.is_active %>
-        <strong> (Active) </strong>
-      <% else %>
-        <%= button_to 'Activate', user_user_avatar_path(@user, avatar), method: :put %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+
+<%= form_with url: user_user_avatars_path(@user), method: :put do %>
+  <ul>
+    <% @user.user_avatars.each do |user_avatar| %>
+      <li>
+        <%= radio_button_tag :avatar_id, user_avatar.avatar.id, user_avatar.is_active %>
+        <%= label_tag "avatar_id_#{user_avatar.avatar.id}", user_avatar.avatar.avatar_name %>
+      </li>
+    <% end %>
+  </ul>
+  <%= submit_tag "更新" %>
+<% end %>

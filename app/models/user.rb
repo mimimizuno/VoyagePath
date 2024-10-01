@@ -11,6 +11,10 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :goal, length: { maximum: 255 }
+  # ユーザー作成時にレベル1のアバターを獲得する
+  after_create :add_level_1_avatar
+  # レベル変更時にアバターを獲得
+  before_update :acquire_new_avatars, if: :will_save_change_to_level?
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
@@ -45,6 +49,19 @@ class User < ApplicationRecord
   # ユーザーのログイン情報を破棄する
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  # レベル1のアバターを獲得する
+  def add_level_1_avatar
+    level_1_avatar = Avatar.find_by(required_level: 1)
+    self.avatars << level_1_avatar
+  end
+
+  # レベル変更時に新しいアバターを獲得
+  def acquire_new_avatars
+    Avatar.where("required_level <= ?", self.level).each do |avatar|
+      self.avatars << avatar unless self.avatars.include?(avatar)
+    end
   end
 
 end

@@ -5,6 +5,7 @@ User.create!(user_name: "sososo",
              password_confirmation: "password",
              goal: "Do my best",
              goal_due_date: Date.today,
+             level: 50,
              admin: true
             )
 
@@ -15,12 +16,14 @@ User.create!(user_name: "sososo",
   password = "password"
   sentence = Faker::Lorem.sentence
   day = Date.today + n
+  level = n
   User.create!(user_name: user_name,
                email: email,
                password: password,
                password_confirmation: password,
                goal: sentence,
-               goal_due_date: day
+               goal_due_date: day,
+               level: level
               )
 end
 

@@ -4,7 +4,7 @@ class UserAvatarTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:michael)
-    @avatar = avatars(:dog)
+    @avatar = avatars(:cat)
     @user_avatar = UserAvatar.new(user: @user, avatar: @avatar)
   end
 
