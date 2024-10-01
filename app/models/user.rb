@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
+  has_many :user_avatars, dependent: :destroy
+  has_many :avatars, through: :user_avatars
   attr_accessor :remember_token
   validates :user_name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

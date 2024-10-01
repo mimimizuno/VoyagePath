@@ -1,15 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  avatar_name: testAvatar
-  image_url: MyString
-  string: MyString
-  required_level: MyString
-  integer: MyString
-
-# two:
-#   avatar_name: MyString
-#   image_url: MyString
-#   string: MyString
-#   required_level: MyString
-#   integer: MyString
+dog:
+  avatar_name: "犬1"
+  required_level: 1
+  image_name: 'dog1.jpg'
