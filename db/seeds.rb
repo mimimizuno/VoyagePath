@@ -32,7 +32,7 @@ avatars = [
   { avatar_name: '牛', required_level: 7, image_name: 'cattle.jpg' },
   { avatar_name: 'カメレオン', required_level: 8, image_name: 'chameleon.jpg' },
   { avatar_name: 'チーター', required_level: 10, image_name: 'cheetah.jpg' },
-  { avatar_name: 'ワニ', required_level: 15, image_name: 'crododile.jpg' },
+  { avatar_name: 'ワニ', required_level: 15, image_name: 'crocodile.jpg' },
   { avatar_name: 'イルカ', required_level: 20, image_name: 'dolphin.jpg' },
   { avatar_name: 'ゾウ', required_level: 25, image_name: 'elephant.jpg' },
   { avatar_name: 'キリン', required_level: 30, image_name: 'giraffe.jpg' },
