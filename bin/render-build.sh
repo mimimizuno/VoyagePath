@@ -11,3 +11,6 @@ bundle exec rails assets:clean
 # Uncomment the following line:
 
 bundle exec rails db:migrate
+
+# 本番環境でのseed実行
+bundle exec rails db:seed:load DIR=db/seeds_production.rb

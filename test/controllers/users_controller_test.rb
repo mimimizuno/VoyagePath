@@ -78,6 +78,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not @other_user.admin?
   end
 
+  # 非ログイン状態でのdestoryアクション
   test "should redirect destroy when not logged in" do
     assert_no_difference 'User.count' do
       delete user_path(@user)
@@ -86,6 +87,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
+  # 管理アカウント以外でのdestroyアクション
   test "should redirect destroy when logged in as a non-admin" do
     log_in_as(@other_user)
     assert_no_difference 'User.count' do
