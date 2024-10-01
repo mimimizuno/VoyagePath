@@ -1,0 +1,13 @@
+<h1>My Avatars</h1>
+<ul>
+  <% @avatars.each do |avatar| %>
+    <li>
+      <%= avatar.avatar_name %> (Level Required: <%= avatar.required_level %>)
+      <% if avatar.is_active %>
+        <strong> (Active) </strong>
+      <% else %>
+        <%= button_to 'Activate', user_user_avatar_path(@user, avatar), method: :put %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
