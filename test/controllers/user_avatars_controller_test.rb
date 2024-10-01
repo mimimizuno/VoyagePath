@@ -4,6 +4,7 @@ class UserAvatarsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
+    @user_avatar = user_avatars(:one)
     @avatar = avatars(:dog)
   end
 
@@ -20,8 +21,9 @@ class UserAvatarsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # updateアクション
-  test "should get update" do
-    put user_user_avatar_path(@user, @avatar), params: { is_active: true }
-    assert_response :success
+  test "should update active avatar via radio button" do
+    put user_user_avatar_path(@user, @user_avatar), params: { avatar_id: @avatar.id }
+    assert @user.user_avatars.find_by(avatar_id: @avatar.id).is_active
+    assert_redirected_to user_user_avatars_path(@user)
   end
 end

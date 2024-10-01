@@ -6,7 +6,7 @@ michael:
   goal: Do my best!
   goal_due_date: <%= Date.today %>
   level: 1
-  experience_points: 1
+  experience_points: 0
   admin: true
   password_digest: <%= User.digest('password') %>
 
