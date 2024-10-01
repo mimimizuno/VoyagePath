@@ -24,5 +24,12 @@ class UserAvatarTest < ActiveSupport::TestCase
     @user_avatar.avatar = nil 
     assert_not @user_avatar.valid?
   end
-  
+
+  # ユーザーとアバターの関連が一意であることを確認
+  test "should not allow duplicate user_avatar pairs" do
+    duplicate_user_avatar = @user_avatar.dup
+    @user_avatar.save
+    assert_not duplicate_user_avatar.valid?
+  end
+
 end
