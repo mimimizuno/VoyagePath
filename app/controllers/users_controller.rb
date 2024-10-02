@@ -51,6 +51,20 @@ class UsersController < ApplicationController
     redirect_to users_url, status: :see_other
   end
 
+  def completion_rates
+    user = User.find(params[:id])
+    case params[:period]
+    when 'weekly'
+      render json: user.weekly_completion_rates
+    when 'monthly'
+      render json: user.monthly_completion_rates
+    when 'yearly'
+      render json: user.yearly_completion_rates
+    else
+      render json: { error: 'Invalid period' }, status: :bad_request
+    end
+  end
+
   private
 
     # Strong Parameter設定（ログイン用）
