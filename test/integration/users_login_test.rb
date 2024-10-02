@@ -47,5 +47,19 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     log_in_as(@user, remember_me: '0')
     assert cookies[:remember_token].blank?
   end
+
+  # ログインしたときに経験値が計算されるか
+  test "should calculation experience on login" do
+    @user.update(last_experience_update_at: Date.yesterday - 1.day)
+    initial_experience_points = @user.experience_points
+    @user.tasks.create(title: "Task", due_date: Date.yesterday, completed: true)
+    post login_path, params: { session: { email: @user.email, password: 'password' } }
+    assert is_logged_in?
+    @user.reload
+    # 昨日の経験値が計算される
+    assert @user.experience_points > initial_experience_points
+    # 経験値が変更されたことによるflashの表示
+    assert_not flash.empty?
+  end
   
 end

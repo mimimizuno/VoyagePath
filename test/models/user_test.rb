@@ -115,4 +115,49 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  # calculate_experience_on_loginで経験値が計算されるか
+  test "should calculate experience on login" do
+    @user.tasks.create(title: "Task", due_date: Date.yesterday, completed: true)
+    @user.calculate_experience_on_login
+    # 昨日分の経験値が計算されていることを確認
+    assert @user.experience_points > 0, "Experience points should be greater than 0"
+  end
+  
+  # last_experience_update_atが更新されるか
+  test "should update last_experience_update_at after experience calculation" do
+    @user.tasks.create(title: "Task", due_date: Date.yesterday, completed: true)
+    @user.calculate_experience_on_login
+    # 日付が今日に更新されていることを確認
+    assert_equal Date.today, @user.last_experience_update_at, "Last experience update date should be today"
+  end
+  
+  # 月末の月曜日で日、週、月の経験値加算ができているのか
+  test "should calculate both daily, weekly, monthly experience on Monday" do
+    # 例として2024/10/2(月)を取得
+    monday = Date.new(2024, 10, 2).beginning_of_week
+    7.times do |n|
+      @user.tasks.create(title: "Task#{n}", due_date: monday - 3 + n, completed: true)
+    end
+    # 日曜日時点での経験値を保存
+    initial_experience_points = @user.experience_points
+    # 最後の計算日を前日の日曜日に設定
+    @user.update(last_experience_update_at: monday - 1.day)
+    # 経験値計算
+    @user.calculate_experience_on_login
+    # debugger
+    # 新しい経験値を取得
+    new_experience_points = @user.experience_points
+    # 日次の経験値が増えた分
+    daily_experience = 0
+    (monday..Date.today).each do |date|
+      daily_experience += ((@user.tasks.where(due_date: date, completed: true).count).to_f / (@user.tasks.where(due_date: date).count).to_f * 3).round + @user.tasks.where(due_date: date, completed: true).count
+    end
+    # 週次の経験値が増えた分
+    weekly_experience = (((@user.tasks.where(due_date: monday.beginning_of_week..monday.end_of_week, completed: true).count).to_f / (@user.tasks.where(due_date: monday.beginning_of_week..monday.end_of_week).count).to_f) * 10).round
+    # 月次の経験値が増えた分
+    monthly_experience = (((@user.tasks.where(due_date: monday.beginning_of_month..monday.end_of_month, completed: true).count).to_f / (@user.tasks.where(due_date: monday.beginning_of_week..monday.end_of_week).count).to_f) * 30).round
+    # 経験値が日次、週次、月次の合計分増えたことを確認
+    assert_equal initial_experience_points + daily_experience + weekly_experience + monthly_experience, new_experience_points, "Experience points should include both daily and weekly bonuses"
+  end
+
 end
