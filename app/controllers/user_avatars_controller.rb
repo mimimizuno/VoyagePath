@@ -29,7 +29,7 @@ class UserAvatarsController < ApplicationController
     else
       flash[:danger] = "アクティブなアバターの更新に失敗しました。"
     end
-    redirect_to user_user_avatars_path(@user)
+    redirect_to user_path(@user)
   end
 
   private

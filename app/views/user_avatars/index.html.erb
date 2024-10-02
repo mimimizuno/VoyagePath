@@ -1,6 +1,6 @@
 <h1>My Avatars</h1>
 
-<%= form_with url: user_user_avatars_path(@user), method: :put do %>
+<%= form_with url: user_user_avatar_path(@user, :avatar_id), method: :put do %>
   <ul>
     <% @user.user_avatars.each do |user_avatar| %>
       <li>
