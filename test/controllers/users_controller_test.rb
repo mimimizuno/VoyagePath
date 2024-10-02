@@ -78,6 +78,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not @other_user.admin?
   end
 
+  # 非ログイン状態でのdestoryアクション
   test "should redirect destroy when not logged in" do
     assert_no_difference 'User.count' do
       delete user_path(@user)
@@ -86,6 +87,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
+  # 管理アカウント以外でのdestroyアクション
   test "should redirect destroy when logged in as a non-admin" do
     log_in_as(@other_user)
     assert_no_difference 'User.count' do
@@ -93,6 +95,40 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :see_other
     assert_redirected_to root_url
+  end
+
+  # completion_ratesアクションのテスト(weekly)
+  test "should get weekly_completion_rates" do
+    get completion_rates_user_url(@user, period: 'weekly')
+    assert_response :success
+    # JSONレスポンスのチェック
+    json_response = JSON.parse(@response.body)
+    # weeklyの大きさ7のjson
+    assert_equal 7, json_response.size 
+  end
+
+  # completion_ratesアクションのテスト(monthly)
+  test "should get monthly_completion_rates" do
+    # 現在の月の日数を取得
+    days_in_month = Date.today.end_of_month.day
+    get completion_rates_user_url(@user, period: 'monthly')
+    assert_response :success
+    # JSONレスポンスのチェック
+    json_response = JSON.parse(@response.body)
+    # monthの大きさのjson
+    assert_equal days_in_month, json_response.size 
+  end
+
+  # completion_ratesアクションのテスト(yearly)
+  test "should get yearly_completion_rates" do
+    # 現在の年の日数を取得
+    days_in_year = Date.leap?(Date.today.year) ? 366 : 365
+    get completion_rates_user_url(@user, period: 'yearly')
+    assert_response :success
+    # JSONレスポンスのチェック
+    json_response = JSON.parse(@response.body)
+    # monthの大きさのjson
+    assert_equal days_in_year, json_response.size 
   end
 
 end

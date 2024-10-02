@@ -1,3 +1,65 @@
 <% provide(:title, 'Profile') %>
 <%= @user.user_name %>, <%= @user.email %>, <%= @user.goal %>, <%= @user.goal_due_date %>
 ,<%= @user.level %>, <%= @user.experience_points %>
+
+<% if @user.active_avatar %>
+  <p>Active Avatar: <%= @user.active_avatar.avatar_name %></p>
+  <%= image_tag @user.active_avatar.image_path %>
+<% else %>
+  <p>No active avatar set.</p>
+<% end %>
+
+<div>
+  <button id="weekly-btn">Weekly</button>
+  <button id="monthly-btn">Monthly</button>
+  <button id="yearly-btn">Yearly</button>
+</div>
+
+<canvas id="completion-chart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let ctx = document.getElementById('completion-chart').getContext('2d');
+    let chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Completion Rate',
+          data: [],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      }
+    });
+
+    function updateChart(period) {
+      fetch(`/users/<%= @user.id %>/completion_rates?period=${period}`)
+        .then(response => response.json())
+        .then(data => {
+          let labels = data.map(entry => entry.date);
+          let completionRates = data.map(entry => entry.completion_rate);
+
+          chart.data.labels = labels;
+          chart.data.datasets[0].data = completionRates;
+          chart.update();
+        });
+    }
+
+    document.getElementById('weekly-btn').addEventListener('click', function() {
+      updateChart('weekly');
+    });
+
+    document.getElementById('monthly-btn').addEventListener('click', function() {
+      updateChart('monthly');
+    });
+
+    document.getElementById('yearly-btn').addEventListener('click', function() {
+      updateChart('yearly');
+    });
+
+    // 初期表示は週ごと
+    updateChart('weekly');
+  });
+</script>

@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+dog:
+  avatar_name: "犬1"
+  required_level: 1
+  image_name: 'dog1.jpg'
+
+cat:
+  avatar_name: "猫"
+  required_level: 2
+  image_name: 'cat.jpg'
+
+lion:
+  avatar_name: "ライオン"
+  required_level: 50
+  image_name: 'lion.jpg'
