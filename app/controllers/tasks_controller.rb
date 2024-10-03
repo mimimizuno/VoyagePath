@@ -38,6 +38,17 @@ class TasksController < ApplicationController
     redirect_to user_tasks_path(@user), notice: 'Task was successfully destroyed.'
   end
 
+  # 週ごとのタスクを表示するアクション
+  def week
+    # パラメータが送られてきたらそれをstart_dateに、なければ今週の月曜日
+    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today.beginning_of_week
+    @end_date = @start_date + 6.days
+
+    # 1週間分のタスクを取得
+    @week_tasks = @user.tasks.where(due_date: @start_date..@end_date)
+  end
+
+
   private
 
   def set_user
