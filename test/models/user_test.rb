@@ -160,4 +160,15 @@ class UserTest < ActiveSupport::TestCase
     assert_equal initial_experience_points + daily_experience + weekly_experience + monthly_experience, new_experience_points, "Experience points should include both daily and weekly bonuses"
   end
 
+  # レベルアップが正しく動作するかどうか
+  test "should level up when eperience reaches threshold" do
+    @user.update(level: 1, experience_points: 95)
+
+    # 経験値を追加(次のレベルまで5、10与えて5持ち越す)
+    @user.add_experience(10)
+
+    assert_equal 2, @user.level, "User should level up to level 2"
+    assert_equal 5, @user.experience_points, "Remaining experience points should be 5"
+  end
+
 end
