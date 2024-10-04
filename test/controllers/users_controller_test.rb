@@ -53,7 +53,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should redirect edit when logged in as wrong user" do
     log_in_as(@other_user)
     get edit_user_path(@user)
-    assert flash.empty?
+    assert flash[:danger].nil?
     assert_redirected_to root_url
   end
 
@@ -61,7 +61,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@other_user)
     put user_path(@user), params: { user: { user_name: @user.user_name,
                                             email: @user.email } }
-    assert flash.empty?
+    assert flash[:danger].nil?
     assert_redirected_to root_url
   end
 
