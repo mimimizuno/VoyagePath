@@ -1,7 +1,7 @@
 <% provide(:title, 'edit todo') %>
 <h1>Edit Task for <%= @user.user_name %></h1>
 
-<%= form_with(model: [@user, @task]) do |f| %>
+<%= form_with(model: [@user, @task], local: true) do |f| %>
   <div>
     <%= f.label :title %>
     <%= f.text_field :title %>
@@ -22,9 +22,69 @@
     <%= f.check_box :completed %>
   </div>
 
+  <!-- Repetition Fields -->
+  <div>
+<%= f.select :repetition_type, 
+    options_for_select([['Weekly', 'weekly'], ['Monthly', 'monthly']], 
+    @task.repetition ? JSON.parse(@task.repetition)['type'] : nil), 
+    {}, 
+    { id: "repetition_type_select" } %>
+  </div>
+
+  <!-- Weekly: Days of the Week -->
+  <div id="weekly_repetition" style="display: none;">
+    <%= f.label :repetition_days, "Select Days (Weekly)" %>
+    <%= f.select :repetition_days, 
+          options_for_select(Date::DAYNAMES, 
+          (@task.repetition && JSON.parse(@task.repetition)['type'] == 'weekly') ? 
+          JSON.parse(@task.repetition)['days'] : []), 
+          {}, { multiple: true, name: "task[repetition_days][]", size: 7 }
+    %>
+  </div>
+
+  <!-- Monthly: Days of the Month -->
+  <div id="monthly_repetition" style="display: none;">
+    <%= f.label :repetition_days, "Select Days (Monthly)" %>
+    <%= f.select :repetition_days, 
+          options_for_select((1..31).to_a, (@task.repetition && JSON.parse(@task.repetition)['type'] == 'monthly') ? 
+          JSON.parse(@task.repetition)['days'].map(&:to_i) : []), 
+          {}, { multiple: true, name: "task[repetition_days][]" } 
+    %>
+  </div>
+
   <div>
     <%= f.submit 'Update Task' %>
   </div>
 <% end %>
 
 <%= link_to 'Back', user_tasks_path(@user) %>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const repetitionTypeSelect = document.getElementById("repetition_type_select");
+  const weeklyRepetitionDiv = document.getElementById("weekly_repetition");
+  const monthlyRepetitionDiv = document.getElementById("monthly_repetition");
+
+  if (repetitionTypeSelect) {
+    function toggleRepetitionFields() {
+      if (repetitionTypeSelect.value === 'weekly') {
+        weeklyRepetitionDiv.style.display = 'block';
+        monthlyRepetitionDiv.style.display = 'none';
+      } else if (repetitionTypeSelect.value === 'monthly') {
+        weeklyRepetitionDiv.style.display = 'none';
+        monthlyRepetitionDiv.style.display = 'block';
+      } else {
+        weeklyRepetitionDiv.style.display = 'none';
+        monthlyRepetitionDiv.style.display = 'none';
+      }
+    }
+
+    repetitionTypeSelect.addEventListener("change", toggleRepetitionFields);
+
+    // Run on load to set the correct fields based on the current selection
+    toggleRepetitionFields();
+  } else {
+    console.error('Element #repetition_type_select not found.');
+  }
+});
+</script>

@@ -59,31 +59,7 @@ class User < ApplicationRecord
     user_avatars.find_by(is_active: true)&.avatar
   end
 
-  # 毎日の経験値を更新するメソッド
-  def update_daily_experience
-    daily_tasks = tasks.where(due_date: Date.today)
-    completion_rate = calculate_completion_rate(daily_tasks)
-    experience_gained = (completion_rate * 3).round + daily_tasks.where(completed: true).count
-    add_experience(experience_gained)
-  end
-  
-  # 週の経験値を更新するメソッド
-  def update_weekly_experience
-    weekly_tasks = tasks.where(due_date: Date.today.beginning_of_week..Date.today.end_of_week)
-    completion_rate = calculate_completion_rate(weekly_tasks)
-    experience_gained = (completion_rate * 10).round
-    add_experience(experience_gained)
-  end
-  
-  # 月の経験値を更新するメソッド
-  def update_monthly_experience
-    monthly_tasks = tasks.where(due_date: Date.today.beginning_of_month..Date.today.end_of_month)
-    completion_rate = calculate_completion_rate(monthly_tasks)
-    experience_gained = (completion_rate * 30).round
-    add_experience(experience_gained)
-  end
-
-    # 指定された期間（日付範囲）でタスク達成率を取得
+  # 指定された期間（日付範囲）でタスク達成率を取得
   def completion_rates_for_period(start_date, end_date)
     (start_date..end_date).map do |date|
       daily_tasks = tasks.where(due_date: date)

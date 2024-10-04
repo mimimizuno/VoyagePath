@@ -1,5 +1,7 @@
 class UserAvatarsController < ApplicationController
+  before_action :logged_in_user
   before_action :set_user
+  before_action :correct_user
 
   def index
     @avatars = @user.avatars

@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_user
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user
+  before_action :correct_user
 
   def index
     @tasks = @user.tasks
@@ -38,6 +40,17 @@ class TasksController < ApplicationController
     redirect_to user_tasks_path(@user), notice: 'Task was successfully destroyed.'
   end
 
+  # 週ごとのタスクを表示するアクション
+  def week
+    # パラメータが送られてきたらそれをstart_dateに、なければ今週の月曜日
+    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today.beginning_of_week
+    @end_date = @start_date + 6.days
+
+    # 1週間分のタスクを取得
+    @week_tasks = @user.tasks.where(due_date: @start_date..@end_date)
+  end
+
+
   private
 
   def set_user
@@ -49,6 +62,11 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :due_date, :repetition, :completed)
+    repetition_data = {
+      type: params[:task][:repetition_type],
+      days: params[:task][:repetition_days]
+    }.to_json
+  
+    params.require(:task).permit(:title, :description, :due_date, :completed).merge(repetition: repetition_data)
   end
 end

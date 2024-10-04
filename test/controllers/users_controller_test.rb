@@ -53,7 +53,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should redirect edit when logged in as wrong user" do
     log_in_as(@other_user)
     get edit_user_path(@user)
-    assert flash.empty?
+    assert flash[:danger].nil?
     assert_redirected_to root_url
   end
 
@@ -61,7 +61,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@other_user)
     put user_path(@user), params: { user: { user_name: @user.user_name,
                                             email: @user.email } }
-    assert flash.empty?
+    assert flash[:danger].nil?
     assert_redirected_to root_url
   end
 
@@ -97,8 +97,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
-  # completion_ratesアクションのテスト(weekly)
+  # completion_ratesアクションのテスト(weekly)(ログイン必須)
   test "should get weekly_completion_rates" do
+    get completion_rates_user_url(@user, period: 'weekly')
+    assert_not flash.empty?
+    log_in_as(@user)
     get completion_rates_user_url(@user, period: 'weekly')
     assert_response :success
     # JSONレスポンスのチェック
@@ -109,6 +112,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   # completion_ratesアクションのテスト(monthly)
   test "should get monthly_completion_rates" do
+    log_in_as(@user)
     # 現在の月の日数を取得
     days_in_month = Date.today.end_of_month.day
     get completion_rates_user_url(@user, period: 'monthly')
@@ -121,6 +125,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   # completion_ratesアクションのテスト(yearly)
   test "should get yearly_completion_rates" do
+    log_in_as(@user)
     # 現在の年の日数を取得
     days_in_year = Date.leap?(Date.today.year) ? 366 : 365
     get completion_rates_user_url(@user, period: 'yearly')

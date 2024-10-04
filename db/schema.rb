@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_01_045448) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_04_193914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_01_045448) do
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.date "last_experience_update_at"
+    t.date "last_task_update_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

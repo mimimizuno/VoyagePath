@@ -1,0 +1,42 @@
+<h1><%= @user.user_name %>'s Tasks for the Week</h1>
+
+<table>
+  <thead>
+    <tr>
+      <% (@start_date..@end_date).each do |date| %>
+        <th><%= date.strftime("%A, %Y-%m-%d") %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% (@start_date..@end_date).each do |date| %>
+        <td>
+          <% tasks_for_day = @week_tasks.select { |task| task.due_date == date } %>
+          <% if tasks_for_day.any? %>
+            <ul>
+              <% tasks_for_day.each do |task| %>
+                <li>
+                  <%= task.title %> - <%= task.completed ? 'Completed' : 'Incomplete' %>
+                  <%= link_to 'Show', user_task_path(@user, task) %> |
+                  <%= link_to 'Edit', edit_user_task_path(@user, task) %> |
+                  <%= link_to 'Delete', user_task_path(@user, task), method: :delete, data: { confirm: 'Are you sure?' } %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            No tasks
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <!-- 前の週へのリンク -->
+  <%= link_to 'Previous Week', week_user_tasks_path(@user, start_date: @start_date - 1.week) %> |
+  
+  <!-- 次の週へのリンク -->
+  <%= link_to 'Next Week', week_user_tasks_path(@user, start_date: @start_date + 1.week) %>
+</div>
