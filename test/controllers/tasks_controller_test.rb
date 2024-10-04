@@ -2,8 +2,12 @@ require "test_helper"
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
 
+  # ログイン必須かつ正しいユーザーでのログインでのみ成功
+  
   setup do
     @user = users(:michael)
+    # 正しいユーザーでログインした状態でのみ成功
+    log_in_as(@user)
     @task = tasks(:one)
 
     # 今週のタスク

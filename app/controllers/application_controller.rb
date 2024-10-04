@@ -2,6 +2,21 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   before_action :check_for_updates
   
+  # ログイン済みユーザーかどうかを確認
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in!"
+      redirect_to login_url, status: :see_other
+    end
+  end
+  
+  # 正しいユーザーかどうかを確認
+  def correct_user
+    @user ||= User.find(params[:id])
+    redirect_to(root_url, status: :see_other) unless current_user?(@user)
+  end
+
   private
 
   # アクションを呼び出すたびに経験値とタスク生成をチェック
