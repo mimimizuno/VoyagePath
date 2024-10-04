@@ -60,6 +60,11 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :due_date, :repetition, :completed)
+    repetition_data = {
+      type: params[:task][:repetition_type],
+      days: params[:task][:repetition_days]
+    }.to_json
+  
+    params.require(:task).permit(:title, :description, :due_date, :completed).merge(repetition: repetition_data)
   end
 end
