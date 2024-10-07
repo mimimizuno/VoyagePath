@@ -8,7 +8,7 @@
         <div class="card-body">
           <p>ユーザー名: <%= @user.user_name %></p>
           <p>レベル: <%= @user.level %></p>
-          <p>次のレベルまで: <%= @user.experience_points %></p>
+          <p>次のレベルまで: <%= @user.experience_for_next_level - @user.experience_points %> exp </p>
         </div>
       </div>
     </div>
@@ -18,6 +18,7 @@
       <div class="card">
         <div class="card-header">目標</div>
         <div class="card-body">
+          <p>期限日: <%= @user.goal_due_date %></p>
           <p>目標: <%= @user.goal %></p>
         </div>
       </div>
@@ -28,15 +29,20 @@
     <!-- 今日のToDo -->
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header">今日のToDo</div>
+        <div class="card-header"><%= Date.today %>のToDo</div>
         <div class="card-body">
           <ul class="list-group">
             <% @tasks_today.each do |task| %>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                <%= task.title %>
-                <input type="checkbox" <%= 'checked' if task.completed %>>
+                <%= link_to task.title, user_task_path(@user, task) %>
+                <% if task.completed? %>
+                  <p>達成済み</p>
+                <% else %>
+                  <p>未達成</p>
+                <% end %>
               </li>
             <% end %>
+            <%= link_to "今週のタスク", week_user_tasks_path(@user) %>
           </ul>
         </div>
       </div>
@@ -47,6 +53,7 @@
       <div class="card">
         <div class="card-header">今日の達成率</div>
         <div class="card-body">
+          <%= "#{@user.calculate_completion_rate(@tasks_today) * 100} %" %>
         </div>
       </div>
     </div>
@@ -80,6 +87,10 @@
           <% else %>
             <i class="bi bi-person-circle default-avatar"></i>
           <% end %>
+          <div>
+            <%= link_to "所持アバター", user_user_avatars_path(@user) %>
+            <%= link_to "全アバター", avatars_path %>
+          </div>
         </div>
       </div>
     </div>

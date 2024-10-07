@@ -85,3 +85,4 @@ document.addEventListener("turbo:load", function() {
   // 初期表示は週ごと
   updateChart('weekly');
 });
+
