@@ -141,7 +141,7 @@ class TaskTest < ActiveSupport::TestCase
     # 繰り返し設定のあるタスクを作成（週）
     @task_weekly = Task.create!(
       title: "Weekly Task",
-      due_date: Date.today - 1 .week,
+      due_date: Date.today - 1 .month,
       repetition: { type: 'weekly', days: ["Monday", "Wednesday", "Friday"] }.to_json,
       user: @user
     )

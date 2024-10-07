@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     unless logged_in?
       store_location
-      flash[:danger] = "Please log in!"
+      flash[:danger] = "ログインしてください"
       redirect_to login_url, status: :see_other
     end
   end
@@ -32,10 +32,10 @@ class ApplicationController < ActionController::Base
       current_user.save
       # debugger
       if current_user.experience_points > initial_experience_points
-        flash.now[:notice] = "Welcome back! Your experience points have been updated!"
+        flash.now[:notice] = "経験値が更新されました!"
       end
       if current_user.level > initial_level
-        flash.now[:notice] = "Congratulations! You have leveled up to level #{current_user.level}!!"
+        flash.now[:notice] = "おめでとうござます! レベルアップ! レベルが#{current_user.level}になりました!"
       end
     end
 
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
       Task.generate_tasks_for_user(current_user)
       current_user.update(last_task_update_at: Date.today)
       if current_user.tasks.count > initial_tasks_count
-        flash.now[:notice] = "Recurring tasks have been generated!"
+        flash.now[:notice] = "繰り返しのタスクが生成されました"
       end
     end
   end
