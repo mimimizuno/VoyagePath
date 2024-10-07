@@ -1,5 +1,5 @@
 <% provide(:title, 'create new to do') %>
-<h1>New Task for <%= @user.user_name %></h1>
+<h1>タスクの新規作成</h1>
 
 <%= form_with(model: [@user, @task]) do |f| %>
   <div>
@@ -23,8 +23,8 @@
   </div>
 
   <div>
-    <%= f.submit 'Create Task' %>
+    <%= f.submit 'タスクの作成' %>
   </div>
 <% end %>
 
-<%= link_to 'Back', user_tasks_path(@user) %>
+<%= link_to '戻る', user_tasks_path(@user) %>

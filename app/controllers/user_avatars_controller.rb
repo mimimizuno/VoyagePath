@@ -29,9 +29,9 @@ class UserAvatarsController < ApplicationController
       if user_avatar.update(is_active: true)
         # 他のアバターを非アクティブにする
         @user.user_avatars.where.not(id: user_avatar.id).update_all(is_active: false)
-        flash[:success] = "アクティブなアバターを#{user_avatar.avatar.avatar_name}に更新しました！"
+        flash[:success] = "アバターを#{user_avatar.avatar.avatar_name}に更新しました！"
       else
-        flash[:danger] = "アクティブなアバターの更新に失敗しました。"
+        flash[:danger] = "アバターの更新に失敗しました。"
       end
     else
       # アバターが選択されなかった場合

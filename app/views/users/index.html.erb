@@ -1,5 +1,5 @@
 <% provide(:title, 'All users') %>
-<h1>All users</h1>
+<h1>ユーザー共有</h1>
 
 <%= will_paginate @users %>
 <ul class="users">
@@ -7,8 +7,8 @@
     <li>
       <%= link_to user.user_name, user %>
       <% if current_user.admin? && !current_user?(user) %>
-      | <%= link_to "delete", user, data: { "turbo-method": :delete,
-                                          turbo_confirm: "You sure?" } %>
+      | <%= link_to "削除", user, data: { "turbo-method": :delete,
+                                          turbo_confirm: "本当に削除しますか?" } %>
       <% end %>
     </li>
   <% end %>
