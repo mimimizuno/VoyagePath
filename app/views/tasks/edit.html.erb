@@ -1,4 +1,4 @@
-<% provide(:title, 'edit todo') %>
+<% provide(:title, 'edit to do') %>
 <h1>Edit Task for <%= @user.user_name %></h1>
 
 <%= form_with(model: [@user, @task], local: true) do |f| %>
@@ -60,7 +60,7 @@
 <%= link_to 'Back', user_tasks_path(@user) %>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("turbo:load", function() {
   const repetitionTypeSelect = document.getElementById("repetition_type_select");
   const weeklyRepetitionDiv = document.getElementById("weekly_repetition");
   const monthlyRepetitionDiv = document.getElementById("monthly_repetition");

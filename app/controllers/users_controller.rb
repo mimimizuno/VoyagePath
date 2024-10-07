@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     # pagination指定 1ページにつき25ユーザー
+    @user = current_user
     @users = User.paginate(page: params[:page], per_page: 25 )
   end
   

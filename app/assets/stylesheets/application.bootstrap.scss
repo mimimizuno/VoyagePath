@@ -1,15 +1,84 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
-/* mixins, variables, etc. */
 
-$gray-medium-light: #eaeaea;
+// 色の設定
+$primary-color: #2C3034;
+$secondary-color: #626467;
+$background-color: #F0F2F5;
+$background-content-color: #FFFFFF;
+$hover-color:#F6F7F9;
 
+$night-primary-color: #FFFFFF;
+$night-secondary-color: #626467;
+$night-background-color: #1F2326;
+$night-content-background: #262A30;
+$night-hover-color:#2B3135;
+
+// アプリタイトルのフォント設定
+$app-title-font: 'Notable', sans-serif;
+
+h1 {
+  font-size: 1.8em;
+}
+
+// 全体の色とフォント設定
+body {
+  // 本文
+  font-family: 'Noto sans', sans-serif;
+
+  // 通常モードのスタイル
+  .text{
+    color: $secondary-color; /* 本文の文字色 */
+  }
+  background-color: $background-color; /* アプリ全体の背景色 */
+
+  .primay-text, h1, h2, h3, h4, h5, h6 {
+    color: $primary-color; /* タイトルの文字色 */
+  }
+  .sidebar-header {
+    background-color: $hover-color;
+  }
+
+  .container {
+    background-color: $background-content-color; /* コンテンツの背景色 */
+    .hover-effect:hover {
+      background-color:$hover-color;/* hover */
+    }
+  }
+
+
+  // ナイトモードのスタイル
+  &.night-mode {
+    .text{
+      color: $night-secondary-color; /* ナイトモードの本文の文字色 */
+    }
+    background-color: $night-background-color; /* ナイトモードのアプリ全体の背景色 */
+
+    .primary-text, h1, h2, h3, h4, h5, h6 {
+      color: $night-primary-color; /* ナイトモードのタイトルの文字色 */
+    }
+
+    .sidebar-header {
+      background-color: $night-hover-color;
+    }
+
+    .container {
+      background-color: $night-content-background; /* ナイトモードのコンテンツの背景色 */
+      .hover-effect:hover {
+        background-color:$night-hover-color; /* ナイトモード時のhover */
+      }
+    }
+  }
+}
+
+// mixin
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
 }
 
+// デバッグ
 .debug_dump {
   clear: both;
   float: left;
@@ -18,7 +87,7 @@ $gray-medium-light: #eaeaea;
   background-color: pink;
 }
 
-/* forms */
+// フォーム
 
 input, textarea {
     border: 1px solid #bbb;
@@ -31,6 +100,7 @@ input {
   height: auto !important;
 }
 
+// エラー関係
 #error_explanation {
   color: red;
   ul {
@@ -45,6 +115,7 @@ input {
   }
 }
 
+// チェックボックス
 .checkbox {
   margin-top: -10px;
   margin-bottom: 10px;
@@ -59,8 +130,106 @@ input {
   margin-left: 0;
 }
 
-/* Dropdown menu */
+// // ドロップダウンメニュー
+// .dropdown-menu.active {
+//   display: block;
+// }
 
-.dropdown-menu.active {
-  display: block;
+// サイドバー
+/* 768px未満の画面ではサイドバーを隠す */
+@media (max-width: 1480px) {
+  .app-sidebar {
+    display: none !important;
+  }
 }
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: $app-title-font;
+}
+
+.sidebar-header {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.default-avatar {
+  font-size: 100px;
+}
+
+.username {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.nav {
+  width: 100%;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-item {
+  width: 100%;
+}
+
+.nav-link {
+  color:$primary-color;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.nav-link i {
+  margin-right: 10px;
+}
+
+.sidebar-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+
+.btn-toggle-mode, .logout, #night-mode-toggle{
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  border: none; /* 枠線を消す */
+  background-color: transparent; /* 背景を透明にする */
+  padding: 0; /* パディングを削除 */
+  margin-top: 0; /* メニューの間隔を削減 */
+  margin-bottom: 30px;
+}
+.dropdown-menu.show {
+  display: block;
+  position: relative;
+}
+

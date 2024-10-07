@@ -4,7 +4,7 @@
 
 <% if @user.active_avatar %>
   <p>Active Avatar: <%= @user.active_avatar.avatar_name %></p>
-  <%= image_tag @user.active_avatar.image_path %>
+  <%= image_tag @user.active_avatar.image_path, alt: @user.active_avatar.avatar_name, class: "avatar" %>
 <% else %>
   <p>No active avatar set.</p>
 <% end %>
@@ -19,7 +19,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("turbo:load", function() {
     let ctx = document.getElementById('completion-chart').getContext('2d');
     let chart = new Chart(ctx, {
       type: 'line',
