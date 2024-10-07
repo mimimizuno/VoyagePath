@@ -3,16 +3,37 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
 
-// メニュー操作
+// ナイトモード切り替え
+document.addEventListener('turbo:load', function() {
+  const toggles = document.querySelectorAll('.night-mode-toggle'); // クラスを使って要素を取得
+  
+  // ページが読み込まれたときに、ローカルストレージの状態を確認してナイトモードを適用
+  if (localStorage.getItem('night-mode') === 'enabled') {
+    document.body.classList.add('night-mode');
+  }
 
-// トグルリスナーを追加してクリックをリッスンする
-document.addEventListener("turbo:load", function() {
-    let account = document.querySelector("#account");
-    if (account) {
-      account.addEventListener("click", function(event) {
-        event.preventDefault();
-        let menu = document.querySelector("#dropdown-menu");
-        menu.classList.toggle("active");
-      });
-    }
+  // ナイトモードのトグルボタンのクリックイベントを各ボタンに設定
+  toggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      document.body.classList.toggle('night-mode');
+      
+      // ナイトモードが有効ならローカルストレージに保存
+      if (document.body.classList.contains('night-mode')) {
+        localStorage.setItem('night-mode', 'enabled');
+      } else {
+        localStorage.removeItem('night-mode');
+      }
+    });
   });
+});
+
+// サイドバーのトグル
+document.addEventListener("turbo:load", function() {
+  const accountButton = document.getElementById("avatar");
+  const dropdownMenu = document.getElementById("dropdown-menu");
+  accountButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    dropdownMenu.classList.toggle("show");
+  });
+});
+

@@ -62,4 +62,15 @@ class UserAvatarsControllerTest < ActionDispatch::IntegrationTest
     assert @user.user_avatars.find_by(avatar_id: @avatar.id).is_active
     assert_redirected_to user_path(@user)
   end
+
+  # アバターが選択されなかった場合, 保持してるアバターのis_activeが全てfalseになる
+  test "should set all avatars is_active to false when no avatar is selected" do
+    # 正しいユーザー
+    log_in_as(@user)
+    put user_user_avatar_path(@user, @user_avatar), params: { avatar_id: nil }
+    # アクティブなアバターが存在しないことを確認
+    assert_not @user.user_avatars.find_by(avatar_id: @avatar.id).is_active
+    assert_redirected_to user_path(@user)
+  end
+
 end
