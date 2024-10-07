@@ -3,7 +3,7 @@
     <div class="sidebar container">
 
       <div class="sidebar-title">
-        <h1>VOYAGEPATH</h1>
+        <%= link_to "VoyagePath", root_path, id: "logo" %>
       </div>
 
       <div class="sidebar-header">
@@ -13,6 +13,7 @@
           <i class="bi bi-person-circle default-avatar"></i>
         <% end %>
         <h2 class="username"><%= @user.user_name %></h2>
+        <h2 class="username">level: <%= @user.level%></h3>
       </div>
 
       <ul class="nav flex-column">
@@ -32,7 +33,7 @@
           <% end %>
         </li>
         <li class="nav-item hover-effect">
-          <a href="#" id="account" class="dropdown-toggle nav-link primary-text">
+          <a href="#" id="avatar" class="dropdown-toggle nav-link primary-text">
           <i class="bi bi-emoji-smile"></i> Avatar <b class="caret"></b>
         </a>
         <ul id="dropdown-menu" class="dropdown-menu">
@@ -42,7 +43,7 @@
             <% end %>
           </li>
           <li class="nav-item hover-effect">
-            <%= link_to edit_user_path(@user), class: "nav-link primary-text" do %>
+            <%= link_to user_user_avatars_path(@user), class: "nav-link primary-text" do %>
               <i class="bi bi-emoji-smile"></i> My Avatar
             <% end %>
           </li>
@@ -55,12 +56,12 @@
       </ul>
 
       <div class="sidebar-footer">
-        <button id="night-mode-toggle">
+        <button class="night-mode-toggle">
           <i class="bi bi-moon-fill"></i>
         </button>
-        <a href="#" class="logout">
+        <%= link_to logout_path, class: "logout" ,data: { "turbo-method": :delete } do %>
           <i class="bi bi-box-arrow-right"></i>
-        </a>
+        <% end %>
       </div>
     </div>
   </nav>

@@ -1,33 +1,48 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
+  <div class="container header">
+    <!-- ロゴ -->
     <%= link_to "VoyagePath", root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", root_path %></li>
-        <% if logged_in? %>
-          <li><%= link_to "Users", users_path %></li>
-          <li class="dropdown">
-            <a href="#" id="account" class="dropdown-toggle">
-              Account <b class="caret"></b>
-            </a>
-            <ul id="dropdown-menu" class="dropdown-menu">
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Tasks", user_tasks_path(current_user) %></li>
-              <li><%= link_to "My Avatars", user_user_avatars_path(current_user) %></li>
-              <li><%= link_to "All Avatars", avatars_path %></li>
-              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-              <li class="divider"></li>
-              <li><button id="night-mode-toggle" class="btn btn-secondary">ナイトモード切り替え</button></li>
-              <li>
-                <%= link_to "Log out", logout_path,
-                                       data: { "turbo-method": :delete } %>
-              </li>
-            </ul>
-          </li>
-        <% else %>
-          <li><%= link_to "Log in", login_path %></li>
+
+    <% if logged_in? %>
+      <!-- ハンバーガーアイコン -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- ドロップダウンメニュー -->
+      <div class="dropdown-menu dropdown-menu-right" id="navbarAccountMenu">
+        <h3 class="dropdown-header"><%= @user.user_name %> <span>level: <%= @user.level %></span></h6>
+        <%= link_to @user, class: "dropdown-item hover-effect text" do %>
+          <i class="bi bi-house"></i> Dashboard
         <% end %>
+        <%= link_to user_tasks_path(@user), class: "dropdown-item hover-effect text" do %>
+          <i class="bi bi-check-square"></i> ToDo
+        <% end %>
+        <%= link_to users_path, class: "dropdown-item hover-effect text" do %>
+          <i class="bi bi-people"></i> Share
+        <% end %>
+        <%= link_to avatars_path, class: "dropdown-item hover-effect text" do %>
+          <i class="bi bi-emoji-smile"></i> All Avatar
+        <% end %>
+        <%= link_to user_user_avatars_path(@user), class: "dropdown-item hover-effect text" do %>
+          <i class="bi bi-emoji-smile"></i> My Avatar
+        <% end %>
+        <%= link_to edit_user_path(@user), class: "dropdown-item hover-effect text" do %>
+          <i class="bi bi-gear"></i> Settings
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <button class="night-mode-toggle dropdown-item hover-effect text">
+          <i class="bi bi-moon-fill"></i> Night mode
+        </button>
+        <%= link_to logout_path, class: "dropdown-item hover-effect text" ,data: { "turbo-method": :delete } do %>
+          <i class="bi bi-box-arrow-right"></i> Sign out
+        <% end %>
+      </div>
+    <% else %>
+      <!-- ログインしていない場合のログインリンク -->
+      <ul class="nav navbar-nav navbar-right hover-effect text">
+        <li><%= link_to "Log in", login_path %></li>
       </ul>
-    </nav>
+    <% end %>
   </div>
 </header>

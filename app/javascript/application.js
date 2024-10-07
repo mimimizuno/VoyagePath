@@ -5,15 +5,15 @@ import * as bootstrap from "bootstrap"
 
 // ナイトモード切り替え
 document.addEventListener('turbo:load', function() {
-  const toggle = document.getElementById('night-mode-toggle');
+  const toggles = document.querySelectorAll('.night-mode-toggle'); // クラスを使って要素を取得
   
   // ページが読み込まれたときに、ローカルストレージの状態を確認してナイトモードを適用
   if (localStorage.getItem('night-mode') === 'enabled') {
     document.body.classList.add('night-mode');
   }
 
-  // ナイトモードのトグルボタンのクリックイベント
-  if (toggle) {
+  // ナイトモードのトグルボタンのクリックイベントを各ボタンに設定
+  toggles.forEach(function(toggle) {
     toggle.addEventListener('click', function() {
       document.body.classList.toggle('night-mode');
       
@@ -24,12 +24,12 @@ document.addEventListener('turbo:load', function() {
         localStorage.removeItem('night-mode');
       }
     });
-  }
+  });
 });
 
 // サイドバーのトグル
 document.addEventListener("turbo:load", function() {
-  const accountButton = document.getElementById("account");
+  const accountButton = document.getElementById("avatar");
   const dropdownMenu = document.getElementById("dropdown-menu");
   accountButton.addEventListener("click", function(e) {
     e.preventDefault();
