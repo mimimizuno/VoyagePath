@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @tasks_today = @user.tasks.where(due_date: Date.today)
   end
 
   def edit

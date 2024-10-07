@@ -44,6 +44,28 @@ body {
     background-color: $background-content-color;
   }
 
+  .card {
+    text-align: center;
+    color: $secondary-color;
+    background-color: $background-content-color;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .card-header {
+      font-weight: bold;
+      color: $primary-color;
+      background-color: $hover-color;
+    }
+    button {
+      color: $primary-color;
+      background-color: $hover-color;
+    }
+  }
+
+  .list-group-item {
+    color: $secondary-color;
+    background-color: $background-content-color;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
   .container {
     background-color: $background-content-color; /* コンテンツの背景色 */
     .hover-effect:hover {
@@ -72,15 +94,30 @@ body {
       color: $night-primary-color;
     }
 
-    // .dropdown-menu {
-    //   background-color: $night-content-background;
-    // }
-
     .navbar-toggler {
       border-color: $night-secondary-color;
       .navbar-toggler-icon {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
       }
+    }
+
+    .card {
+      color: $night-secondary-color;
+      background-color: $night-content-background;
+      .card-header {
+        color: $night-primary-color;
+        background-color: $night-hover-color;
+      }
+      button {
+        color: $night-primary-color;
+        background-color: $secondary-color;
+      }
+    }
+
+    .list-group-item {
+      color: $night-secondary-color;
+      background-color: $night-content-background;
+      border-color: $night-hover-color;
     }
 
     .container, .dropdown-menu{
@@ -184,7 +221,7 @@ input {
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   width: 250px;
   height: 100vh;
   display: flex;
@@ -262,7 +299,6 @@ input {
     font-size: 1.5em;
   }
 }
-
 
 // ヘッダー
 .navbar {
