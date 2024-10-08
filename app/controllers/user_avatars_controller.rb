@@ -23,13 +23,20 @@ class UserAvatarsController < ApplicationController
 
   # アクティブなアバターを更新する
   def update
-    user_avatar = @user.user_avatars.find_by(avatar_id: params[:avatar_id])  # チェックボックスで選択されたアバターを取得
-    if user_avatar.update(is_active: true)
-      # 他のアバターを非アクティブにする
-      @user.user_avatars.where.not(id: user_avatar.id).update_all(is_active: false)
-      flash[:success] = "アクティブなアバターを#{user_avatar.avatar.avatar_name}に更新しました！"
+    if params[:avatar_id].present?
+      # アバターが選択された場合
+      user_avatar = @user.user_avatars.find_by(avatar_id: params[:avatar_id])  # 選択されたアバターを取得
+      if user_avatar.update(is_active: true)
+        # 他のアバターを非アクティブにする
+        @user.user_avatars.where.not(id: user_avatar.id).update_all(is_active: false)
+        flash[:success] = "アバターを#{user_avatar.avatar.avatar_name}に更新しました！"
+      else
+        flash[:danger] = "アバターの更新に失敗しました。"
+      end
     else
-      flash[:danger] = "アクティブなアバターの更新に失敗しました。"
+      # アバターが選択されなかった場合
+      @user.user_avatars.update_all(is_active: false)
+      flash[:success] = "アバターを解除しました。"
     end
     redirect_to user_path(@user)
   end

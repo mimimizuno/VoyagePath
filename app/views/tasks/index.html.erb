@@ -1,13 +1,13 @@
-<% provide(:title, 'todo') %>
-<h1>Tasks for <%= @user.user_name %></h1>
+<% provide(:title, 'to do') %>
+<h1><%= @user.user_name %> のタスク</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Due Date</th>
-      <th>Completed</th>
+      <th>タイトル</th>
+      <th>説明</th>
+      <th>締切日</th>
+      <th>達成</th>
       <th></th>
       <th></th>
     </tr>
@@ -20,12 +20,12 @@
         <td><%= task.description %></td>
         <td><%= task.due_date %></td>
         <td><%= task.completed %></td>
-        <td><%= link_to 'Edit', edit_user_task_path(@user, task) %></td>
-        <td><%= link_to 'Delete', user_task_path(@user, task), data: { "turbo-method": :delete,
-                                                               turbo_confirm: "You sure?" } %></td>
+        <td><%= link_to '編集', edit_user_task_path(@user, task) %></td>
+        <td><%= link_to '削除', user_task_path(@user, task), data: { "turbo-method": :delete,
+                                                               turbo_confirm: "本当に削除しますか?" } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Task', new_user_task_path(@user) %>
+<%= link_to '新規作成', new_user_task_path(@user) %>

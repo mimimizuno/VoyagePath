@@ -1,13 +1,32 @@
-<h1>My Avatars</h1>
+<% provide(:title, 'My avatars') %>
+<h1>所持アバター</h1>
 
-<%= form_with url: user_user_avatar_path(@user, :avatar_id), method: :put do %>
+<%= form_with url: user_user_avatar_path(@user, :avatar_id), method: :put, local: true do %>
   <ul>
     <% @user.user_avatars.each do |user_avatar| %>
       <li>
-        <%= radio_button_tag :avatar_id, user_avatar.avatar.id, user_avatar.is_active %>
+        <%= radio_button_tag :avatar_id, user_avatar.avatar.id, user_avatar.is_active, id: "avatar_id_#{user_avatar.avatar.id}", class: "avatar-radio" %>
         <%= label_tag "avatar_id_#{user_avatar.avatar.id}", user_avatar.avatar.avatar_name %>
       </li>
     <% end %>
   </ul>
   <%= submit_tag "更新" %>
 <% end %>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    const radios = document.querySelectorAll(".avatar-radio");
+    let lastChecked;
+
+    radios.forEach(function(radio) {
+      radio.addEventListener('click', function() {
+        if (lastChecked === radio) {
+          radio.checked = false;
+          lastChecked = null; // チェックを解除
+        } else {
+          lastChecked = radio;
+        }
+      });
+    });
+  });
+</script>

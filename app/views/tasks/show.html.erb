@@ -1,25 +1,25 @@
-<% provide(:title, 'todo details') %>
-<h1>Task Details</h1>
+<% provide(:title, 'to do details') %>
+<h1>タスクの詳細</h1>
 
 <p>
-  <strong>Title:</strong>
+  <strong>タイトル:</strong>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>説明:</strong>
   <%= @task.description %>
 </p>
 
 <p>
-  <strong>Due Date:</strong>
+  <strong>締切日:</strong>
   <%= @task.due_date %>
 </p>
 
 <p>
-  <strong>Completed:</strong>
+  <strong>達成:</strong>
   <%= @task.completed ? 'Yes' : 'No' %>
 </p>
 
-<%= link_to 'Edit', edit_user_task_path(@user, @task) %> |
-<%= link_to 'Back', user_tasks_path(@user) %>
+<%= link_to '編集', edit_user_task_path(@user, @task) %> |
+<%= link_to '戻る', user_tasks_path(@user) %>

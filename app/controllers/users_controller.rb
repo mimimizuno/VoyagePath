@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     # pagination指定 1ページにつき25ユーザー
+    @user = current_user
     @users = User.paginate(page: params[:page], per_page: 25 )
   end
   
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
     if @user.save
       reset_session
       log_in @user
-      flash[:success] = "Welcome to VoyagePath!!"
+      flash[:success] = "VoyagePathにようこそ!!"
       redirect_to @user
     else
       render 'new', status: :unprocessable_entity
@@ -27,6 +28,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @tasks_today = @user.tasks.where(due_date: Date.today)
   end
 
   def edit
@@ -37,7 +39,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_profile_params)
       # puts @user.errors.full_messages
-      flash[:success] = "Profile Updated!"
+      flash[:success] = "プロフィールが更新されました"
       redirect_to @user
     else
       # puts @user.errors.full_messages
@@ -47,7 +49,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted!"
+    flash[:success] = "ユーザーが削除されました"
     redirect_to users_url, status: :see_other
   end
 
@@ -61,7 +63,7 @@ class UsersController < ApplicationController
     when 'yearly'
       render json: user.yearly_completion_rates
     else
-      render json: { error: 'Invalid period' }, status: :bad_request
+      render json: { error: '期間が正しくありません' }, status: :bad_request
     end
   end
 
