@@ -32,16 +32,21 @@
         <div class="card-header"><%= Date.today %>のToDo</div>
         <div class="card-body">
           <ul class="list-group">
-            <% @tasks_today.each do |task| %>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <%= link_to task.title, user_task_path(@user, task) %>
-                <% if task.completed? %>
-                  <p>達成済み</p>
-                <% else %>
-                  <p>未達成</p>
-                <% end %>
-              </li>
+            <% if @tasks_today.count > 0 %>
+              <% @tasks_today.each do |task| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= link_to task.title, user_task_path(@user, task) %>
+                  <% if task.completed? %>
+                    <p>達成済み</p>
+                  <% else %>
+                    <p>未達成</p>
+                  <% end %>
+                </li>
+              <% end %>
+            <% else %>
+              タスクがありません
             <% end %>
+            <%= link_to "タスクの作成", new_user_task_path(@user) %>
             <%= link_to "今週のタスク", week_user_tasks_path(@user) %>
           </ul>
         </div>
@@ -85,7 +90,7 @@
           <% if @user.active_avatar.present? %>
             <%= image_tag @user.active_avatar.image_path, alt: @user.active_avatar.avatar_name, class: "avatar" %>
           <% else %>
-            <i class="bi bi-person-circle default-avatar"></i>
+            選択されていません
           <% end %>
           <div>
             <%= link_to "所持アバター", user_user_avatars_path(@user) %>
