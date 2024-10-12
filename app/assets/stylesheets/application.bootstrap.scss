@@ -30,6 +30,11 @@ body {
   // 本文
   font-family: 'Noto sans', sans-serif;
 
+  // アクセントカラー
+  .accent-color{
+    color:$accent-color;
+  }
+  
   // 通常モードのスタイル
   background-color: $background-color; /* アプリ全体の背景色 */
 

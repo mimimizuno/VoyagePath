@@ -41,7 +41,11 @@
     <% else %>
       <!-- ログインしていない場合のログインリンク -->
       <div class="nav navbar-nav navbar-right">
-        <%= link_to "ログイン", login_path, class: "btn btn-accent" %>
+        <% if yield(:title) == 'Log in'%>
+          <%= link_to "新規登録", signup_path, class: "btn btn-accent" %>
+        <% else %>
+          <%= link_to "ログイン", login_path, class: "btn btn-accent" %>
+        <% end %>
       </div>
     <% end %>
   </div>
