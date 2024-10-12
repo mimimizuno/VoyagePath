@@ -3,22 +3,22 @@
     <%= form_with(model: [@user, @task], local: true) do |f| %>
       <div class="mb-3">
         <%= f.label :title, "タイトル", class: "form-label" %>
-        <%= f.text_field :title, class: "form-control" %>
+        <%= f.text_field :title, class: "form-control form-color" %>
       </div>
 
       <div class="mb-3">
         <%= f.label :description, "説明", class: "form-label" %>
-        <%= f.text_area :description, class: "form-control" %>
+        <%= f.text_area :description, class: "form-control form-color" %>
       </div>
 
       <div class="mb-3">
         <%= f.label :due_date, "締切日", class: "form-label" %>
-        <%= f.date_select :due_date, {}, class: "form-select" %>
+        <%= f.date_select :due_date, {}, class: "form-select form-color" %>
       </div>
 
       <div class="form-check mb-3">
         <%= f.label :completed, "達成済み"%>
-        <%= f.check_box :completed %>
+        <%= f.check_box :completed, class: "check-box" %>
       </div>
 
       <!-- 繰り返しフィールド -->
@@ -27,7 +27,7 @@
         <%= f.select :repetition_type, 
             options_for_select([['なし', nil], ['週次', 'weekly'], ['月次', 'monthly']], nil), 
             {}, 
-            { class: "form-select", id: "repetition_type_select" } %>
+            { class: "form-select form-color", id: "repetition_type_select" } %>
       </div>
       <!-- 週次: 曜日の選択 -->
       <div id="weekly_repetition" style="display: none;" class="mb-3 card">
@@ -56,8 +56,8 @@
       </div>
 
       <div class="justify-content-between">
-        <%= f.submit 'タスクの作成', class: "btn btn-success" %>
-        <%= link_to '戻る', user_tasks_path(@user), class: "btn btn-secondary" %>
+        <%= f.submit 'タスクの作成', class: "btn btn-accent" %>
+        <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
       </div>
     <% end %>
   </div>

@@ -69,6 +69,6 @@
 
 <!-- 編集と戻るボタン -->
 <div class="d-flex justify-content-between">
-  <%= link_to '編集', edit_user_task_path(@user, @task), class: "btn btn-primary" %>
-  <%= link_to '戻る', user_tasks_path(@user), class: "btn btn-secondary" %>
+  <%= link_to '編集', edit_user_task_path(@user, @task), class: "btn btn-main" %>
+  <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
 </div>

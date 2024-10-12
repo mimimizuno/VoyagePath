@@ -19,11 +19,11 @@
                     <strong><%= task.title %></strong> - <%= task.completed ? '完了' : '未完了' %>
                   </div>
                   <div>
-                    <%= link_to '詳細', user_task_path(@user, task), class: "btn btn-info btn-sm" %>
-                    <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-primary btn-sm" %>
+                    <%= link_to '詳細', user_task_path(@user, task), class: "btn btn-main" %>
+                    <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-main" %>
                     <%= link_to '削除', user_task_path(@user, task), 
                       data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, 
-                      class: "btn btn-danger btn-sm" %>
+                      class: "btn btn-delete" %>
                   </div>
                 </li>
               <% end %>

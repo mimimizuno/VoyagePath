@@ -40,9 +40,9 @@
       </div>
     <% else %>
       <!-- ログインしていない場合のログインリンク -->
-      <ul class="nav navbar-nav navbar-right hover-effect text">
-        <li><%= link_to "ログイン", login_path %></li>
-      </ul>
+      <div class="nav navbar-nav navbar-right">
+        <%= link_to "ログイン", login_path, class: "btn btn-accent" %>
+      </div>
     <% end %>
   </div>
 </header>
