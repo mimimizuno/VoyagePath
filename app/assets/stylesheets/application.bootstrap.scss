@@ -2,6 +2,9 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 // 色の設定
+$main-color: #9AC1EF;
+$accent-color: #A0E54A;
+
 $primary-color: #2C3034;
 $secondary-color: #626467;
 $background-color: #F0F2F5;
@@ -13,6 +16,9 @@ $night-secondary-color: #cdcdcd;
 $night-background-color: #1F2326;
 $night-content-background: #262A30;
 $night-hover-color:#2B3135;
+
+$solid-color: #bbb;
+$alert-color: #ED5E69;
 
 // アプリタイトルのフォント設定
 $app-title-font: 'Notable', sans-serif;
@@ -78,6 +84,31 @@ body {
     }
   }
 
+  // paginationのカスタム
+  .pagination {
+    a {
+      color: $main-color;
+      background-color: $background-content-color;
+      border-color: $night-hover-color;
+      &:hover {
+        color: $main-color;
+        background-color: $hover-color;
+      }
+    }
+    .active {
+      span {
+        background-color: $main-color;
+        color: $background-content-color;
+        border-color: $main-color;
+      }
+    }
+    .disabled {
+      span {
+        background-color: $night-hover-color;
+        border-color: $night-hover-color;
+      }
+    }
+  }
 
   // ナイトモードのスタイル
   &.night-mode {
@@ -136,6 +167,50 @@ body {
         background-color:$night-hover-color; /* ナイトモード時のhover */
       }
     }
+
+    // paginationのカスタム
+    .pagination {
+      a {
+        color: $main-color;
+        background-color: $night-content-background;
+        &:hover {
+          color: $main-color;
+          background-color: $night-hover-color;
+        }
+      }
+      .active {
+        span {
+          background-color: $main-color;
+          color: $night-content-background;
+          border-color: $main-color;
+        }
+      }
+    }
+  }
+}
+
+// ボタンの設定
+.btn-main {
+  background-color: $main-color;
+  color: white !important;
+  &:hover {
+    background-color: darken($main-color, 10%);
+  }
+}
+
+.btn-accent {
+  background-color: $accent-color;
+  color: white !important;
+  &:hover {
+    background-color: darken($accent-color, 10%);
+  }
+}
+
+.btn-delete {
+  background-color: $alert-color;
+  color: white !important;
+  &:hover {
+    background-color: darken($alert-color, 10%);
   }
 }
 
@@ -176,7 +251,7 @@ body {
 // フォーム
 
 input, textarea {
-    border: 1px solid #bbb;
+    border: 1px solid $solid-color;
     width: 100%;
     margin-bottom: 15px;
     @include box_sizing;
@@ -200,16 +275,6 @@ input {
     color: red;
   }
 }
-
-// チェックボックス
-// .checkbox {
-//   margin-top: -10px;
-//   margin-bottom: 10px;
-//   span {
-//     margin-left: 20px;
-//     font-weight: normal;
-//   }
-// }
 
 #session_remember_me {
   width: auto;
@@ -317,6 +382,7 @@ input {
   align-items: center; /* コンテンツを上下中央揃えに */
   margin-bottom: 10px;
   .header {
+    background-color: $main-color !important;
     height: 60px;
     .dropdown-menu {
       position: absolute;

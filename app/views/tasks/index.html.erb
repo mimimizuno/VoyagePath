@@ -1,6 +1,7 @@
 <% provide(:title, 'to do') %>
 <h1><%= @user.user_name %> の全タスク</h1>
 
+<%= will_paginate @tasks %>
 <div class="row">
   <% @tasks.each do |task| %>
     <div class="col-md-4">
@@ -24,15 +25,17 @@
           <% end %>
 
           <div class="d-flex justify-content-between">
-            <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-primary" %>
+            <%= link_to '詳細', user_task_path(@user, task), class: "btn btn-main" %>
+            <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-main" %>
             <%= link_to '削除', user_task_path(@user, task), 
              data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, 
-             class: "btn btn-danger" %>
+             class: "btn btn-delete" %>
           </div>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+<%= will_paginate @tasks, class: 'pagination-custom' %>
 
-<%= link_to '新規作成', new_user_task_path(@user), class: "btn btn-success" %>
+<%= link_to '新規作成', new_user_task_path(@user), class: "btn btn-accent" %>
