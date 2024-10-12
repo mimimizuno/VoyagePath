@@ -2,43 +2,45 @@
 
 <h1><%= @user.user_name %> の週間タスク</h1>
 
-<table>
-  <thead>
-    <tr>
-      <% (@start_date..@end_date).each do |date| %>
-        <th><%= date.strftime("%A, %Y-%m-%d") %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <% (@start_date..@end_date).each do |date| %>
-        <td>
+<div class="row">
+  <% (@start_date..@end_date).each do |date| %>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="card-title"><%= format_date_with_japanese(date) %></h5>
+        </div>
+        <div class="card-body">
           <% tasks_for_day = @week_tasks.select { |task| task.due_date == date } %>
           <% if tasks_for_day.any? %>
-            <ul>
+            <ul class="list-group">
               <% tasks_for_day.each do |task| %>
-                <li>
-                  <%= task.title %> - <%= task.completed ? 'Completed' : 'Incomplete' %>
-                  <%= link_to '詳細', user_task_path(@user, task) %> |
-                  <%= link_to '編集', edit_user_task_path(@user, task) %> |
-                  <%= link_to '削除', user_task_path(@user, task), method: :delete, data: { confirm: '本当に削除しますか?' } %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong><%= task.title %></strong> - <%= task.completed ? '完了' : '未完了' %>
+                  </div>
+                  <div>
+                    <%= link_to '詳細', user_task_path(@user, task), class: "btn btn-info btn-sm" %>
+                    <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-primary btn-sm" %>
+                    <%= link_to '削除', user_task_path(@user, task), 
+                      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, 
+                      class: "btn btn-danger btn-sm" %>
+                  </div>
                 </li>
               <% end %>
             </ul>
           <% else %>
-            タスクがありません
+            <p>タスクがありません</p>
           <% end %>
-        </td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<div>
+<div class="d-flex justify-content-between">
   <!-- 前の週へのリンク -->
-  <%= link_to '前の週へ', week_user_tasks_path(@user, start_date: @start_date - 1.week) %> |
-  
+  <%= link_to '前の週へ', week_user_tasks_path(@user, start_date: @start_date - 1.week), class: "btn btn-outline-secondary" %>
+
   <!-- 次の週へのリンク -->
-  <%= link_to '次の週へ', week_user_tasks_path(@user, start_date: @start_date + 1.week) %>
+  <%= link_to '次の週へ', week_user_tasks_path(@user, start_date: @start_date + 1.week), class: "btn btn-outline-secondary" %>
 </div>

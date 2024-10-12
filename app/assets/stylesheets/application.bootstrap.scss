@@ -27,8 +27,13 @@ body {
   // 通常モードのスタイル
   background-color: $background-color; /* アプリ全体の背景色 */
 
-  a, .text{
+  a, .text {
     color: $secondary-color;
+  }
+
+  .form-control {
+    color: $secondary-color;
+    background-color: $background-content-color;
   }
 
   .primay-text, .logout, #night-mode-toggle, h1, h2, h3, h4, h5, h6 {
@@ -80,6 +85,11 @@ body {
 
     a, .text {
       color: $night-secondary-color;
+    }
+
+    .form-control {
+      color: $night-secondary-color;
+      background-color: $night-content-background;
     }
 
     .primary-text, .logout, #night-mode-toggle, h1, h2, h3, h4, h5, h6 {
@@ -192,14 +202,14 @@ input {
 }
 
 // チェックボックス
-.checkbox {
-  margin-top: -10px;
-  margin-bottom: 10px;
-  span {
-    margin-left: 20px;
-    font-weight: normal;
-  }
-}
+// .checkbox {
+//   margin-top: -10px;
+//   margin-bottom: 10px;
+//   span {
+//     margin-left: 20px;
+//     font-weight: normal;
+//   }
+// }
 
 #session_remember_me {
   width: auto;

@@ -1,25 +1,74 @@
-<% provide(:title, 'to do details') %>
-<h1>タスクの詳細</h1>
+<% provide(:title, 'タスクの詳細') %>
+<h1 class="mb-4">タスクの詳細</h1>
 
-<p>
-  <strong>タイトル:</strong>
-  <%= @task.title %>
-</p>
+<!-- タイトルカード -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-header">
+    タイトル
+  </div>
+  <div class="card-body">
+    <p><%= @task.title %></p>
+  </div>
+</div>
 
-<p>
-  <strong>説明:</strong>
-  <%= @task.description %>
-</p>
+<!-- 説明カード -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-header">
+    説明
+  </div>
+  <div class="card-body">
+    <p><%= @task.description %></p>
+  </div>
+</div>
 
-<p>
-  <strong>締切日:</strong>
-  <%= @task.due_date %>
-</p>
+<!-- 締切日カード -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-header">
+    締切日
+  </div>
+  <div class="card-body">
+    <p><%= @task.due_date %></p>
+  </div>
+</div>
 
-<p>
-  <strong>達成:</strong>
-  <%= @task.completed ? 'Yes' : 'No' %>
-</p>
+<!-- 達成状況カード -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-header">
+    達成
+  </div>
+  <div class="card-body">
+    <p><%= @task.completed ? '完了' : '未完了' %></p>
+  </div>
+</div>
 
-<%= link_to '編集', edit_user_task_path(@user, @task) %> |
-<%= link_to '戻る', user_tasks_path(@user) %>
+<!-- 繰り返し情報カード -->
+<% if @task.repetition.present? %>
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      繰り返しタイプ
+    </div>
+    <div class="card-body">
+      <% repetition = JSON.parse(@task.repetition) rescue {} %>
+      <p><%= repetition['type'] == 'weekly' ? '週次' : '月次' %></p>
+    </div>
+  </div>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      繰り返しの日
+    </div>
+    <div class="card-body">
+      <% if repetition['type'] == 'weekly' %>
+        <p><%= translate_days_to_japanese(repetition['days']) %> 曜日</p>
+      <% elsif repetition['type'] == 'monthly' %>
+        <p><%= repetition['days'].join(', ') %> 日</p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<!-- 編集と戻るボタン -->
+<div class="d-flex justify-content-between">
+  <%= link_to '編集', edit_user_task_path(@user, @task), class: "btn btn-primary" %>
+  <%= link_to '戻る', user_tasks_path(@user), class: "btn btn-secondary" %>
+</div>

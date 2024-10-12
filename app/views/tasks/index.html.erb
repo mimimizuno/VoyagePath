@@ -1,31 +1,38 @@
 <% provide(:title, 'to do') %>
-<h1><%= @user.user_name %> のタスク</h1>
+<h1><%= @user.user_name %> の全タスク</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>タイトル</th>
-      <th>説明</th>
-      <th>締切日</th>
-      <th>達成</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="row">
+  <% @tasks.each do |task| %>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <div class="card-header"><%= task.title %></div>
+          <p class="card-text"><strong>説明:</strong> <%= task.description %></p>
+          <p class="card-text"><strong>締切日:</strong> <%= task.due_date %></p>
+          <p class="card-text"><strong>達成状況:</strong> <%= task.completed ? "完了" : "未完了" %></p>
 
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.due_date %></td>
-        <td><%= task.completed %></td>
-        <td><%= link_to '編集', edit_user_task_path(@user, task) %></td>
-        <td><%= link_to '削除', user_task_path(@user, task), data: { "turbo-method": :delete,
-                                                               turbo_confirm: "本当に削除しますか?" } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <% if task.repetition.present? %>
+            <p class="card-text">
+              <strong>繰り返し:</strong>
+              <% repetition = JSON.parse(task.repetition) rescue {} %>
+              <% if repetition["type"] == "weekly" %>
+                毎週 <%= translate_days_to_japanese(repetition["days"]) %> 曜日
+              <% elsif repetition["type"] == "monthly" %>
+                毎月 <%= repetition["days"].join(" ") %> 日
+              <% end %>
+            </p>
+          <% end %>
 
-<%= link_to '新規作成', new_user_task_path(@user) %>
+          <div class="d-flex justify-content-between">
+            <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-primary" %>
+            <%= link_to '削除', user_task_path(@user, task), 
+             data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, 
+             class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to '新規作成', new_user_task_path(@user), class: "btn btn-success" %>

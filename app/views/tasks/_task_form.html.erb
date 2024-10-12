@@ -1,0 +1,64 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <%= form_with(model: [@user, @task], local: true) do |f| %>
+      <div class="mb-3">
+        <%= f.label :title, "タイトル", class: "form-label" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :description, "説明", class: "form-label" %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :due_date, "締切日", class: "form-label" %>
+        <%= f.date_select :due_date, {}, class: "form-select" %>
+      </div>
+
+      <div class="form-check mb-3">
+        <%= f.label :completed, "達成済み"%>
+        <%= f.check_box :completed %>
+      </div>
+
+      <!-- 繰り返しフィールド -->
+      <div class="mb-3">
+        <%= f.label :repetition_type, "繰り返しタイプ", class: "form-label" %>
+        <%= f.select :repetition_type, 
+            options_for_select([['なし', nil], ['週次', 'weekly'], ['月次', 'monthly']], nil), 
+            {}, 
+            { class: "form-select", id: "repetition_type_select" } %>
+      </div>
+      <!-- 週次: 曜日の選択 -->
+      <div id="weekly_repetition" style="display: none;" class="mb-3 card">
+        <div class="card-body text-center">
+        <%= f.label :repetition_days, "曜日を選択 (週次)", class: "form-label" %>
+          <% Date::DAYNAMES.each_with_index do |day, index| %>
+            <div class="form-check d-flex flex-wrap align-items-center">
+              <%= label_tag "day_#{index}", translate_day(day)%>
+              <%= check_box_tag "task[repetition_days][]", day, false, id: "day_#{index}"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- 月次: 日の選択 -->
+      <div id="monthly_repetition" style="display: none;" class="mb-3 card">
+        <div class="card-body text-center">
+          <%= f.label :repetition_days, "日付を選択 (月次)", class: "form-label" %>
+          <% (1..31).each do |day| %>
+            <div class="form-check d-flex align-items-center">
+              <%= label_tag "date_#{day}", day.to_s%>
+              <%= check_box_tag "task[repetition_days][]", day, false, id: "date_#{day}"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="justify-content-between">
+        <%= f.submit 'タスクの作成', class: "btn btn-success" %>
+        <%= link_to '戻る', user_tasks_path(@user), class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
