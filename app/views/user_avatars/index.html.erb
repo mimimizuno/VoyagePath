@@ -1,5 +1,5 @@
 <% provide(:title, 'My avatars') %>
-<h1>所持アバター</h1>
+<h1 class="text-center page-title">所持アバター</h1>
 
 <%= form_with url: user_user_avatar_path(@user, :avatar_id), method: :put, local: true do %>
   <ul>
@@ -12,21 +12,3 @@
   </ul>
   <%= submit_tag "更新" %>
 <% end %>
-
-<script>
-  document.addEventListener("turbo:load", function() {
-    const radios = document.querySelectorAll(".avatar-radio");
-    let lastChecked;
-
-    radios.forEach(function(radio) {
-      radio.addEventListener('click', function() {
-        if (lastChecked === radio) {
-          radio.checked = false;
-          lastChecked = null; // チェックを解除
-        } else {
-          lastChecked = radio;
-        }
-      });
-    });
-  });
-</script>

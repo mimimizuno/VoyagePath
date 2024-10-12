@@ -1,5 +1,5 @@
 <% provide(:title, 'Avatars details') %>
 
-<h1><%= @avatar.avatar_name %></h1>
+<h1 class="text-center page-title"><%= @avatar.avatar_name %></h1>
 <p>取得に必要なレベル: <%= @avatar.required_level %></p>
 <%= image_tag @avatar.image_path %>

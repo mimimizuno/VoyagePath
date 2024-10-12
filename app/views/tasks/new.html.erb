@@ -1,30 +1,3 @@
 <% provide(:title, 'create new to do') %>
-<h1>タスクの新規作成</h1>
-
-<%= form_with(model: [@user, @task]) do |f| %>
-  <div>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-
-  <div>
-    <%= f.label :due_date %>
-    <%= f.date_select :due_date %>
-  </div>
-
-  <div>
-    <%= f.label :completed %>
-    <%= f.check_box :completed %>
-  </div>
-
-  <div>
-    <%= f.submit 'タスクの作成' %>
-  </div>
-<% end %>
-
-<%= link_to '戻る', user_tasks_path(@user) %>
+<h1 class="text-center page-title">タスクの新規作成</h1>
+<%= render 'task_form' %>

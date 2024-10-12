@@ -40,9 +40,13 @@
       </div>
     <% else %>
       <!-- ログインしていない場合のログインリンク -->
-      <ul class="nav navbar-nav navbar-right hover-effect text">
-        <li><%= link_to "ログイン", login_path %></li>
-      </ul>
+      <div class="nav navbar-nav navbar-right">
+        <% if yield(:title) == 'Log in'%>
+          <%= link_to "新規登録", signup_path, class: "btn btn-accent" %>
+        <% else %>
+          <%= link_to "ログイン", login_path, class: "btn btn-accent" %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </header>

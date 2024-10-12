@@ -1,4 +1,5 @@
 <% provide(:title, 'Dashboard') %>
+<h1 class="text-center page-title"><%= @user.user_name %> のダッシュボード</h1>
 <div class="mt-4">
   <div class="row">
     <!-- ユーザー情報 -->
@@ -20,6 +21,7 @@
         <div class="card-body">
           <p>期限日: <%= @user.goal_due_date %></p>
           <p>目標: <%= @user.goal %></p>
+          <%= link_to '設定', edit_user_path(@user), class: "btn btn-main" %>
         </div>
       </div>
     </div>
@@ -52,7 +54,7 @@
         </div>
       </div>
     </div>
-
+    
     <!-- 今日の達成率 -->
     <div class="col-md-6">
       <div class="card">
@@ -71,9 +73,9 @@
         <div class="card-header">達成率</div>
         <div class="card-body text-center">
           <div>
-            <button id="weekly-btn">Weekly</button>
-            <button id="monthly-btn">Monthly</button>
-            <button id="yearly-btn">Yearly</button>
+            <button id="weekly-btn" class="btn-main">Weekly</button>
+            <button id="monthly-btn" class="btn-main">Monthly</button>
+            <button id="yearly-btn" class="btn-main">Yearly</button>
           </div>
           <div id="completion-chart-container" data-user-id="<%= @user.id %>">
             <canvas id="completion-chart" width="400" height="200"></canvas>
