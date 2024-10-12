@@ -2,6 +2,9 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 // 色の設定
+$main-color: #9AC1EF;
+$accent-color: #A0E54A;
+
 $primary-color: #2C3034;
 $secondary-color: #626467;
 $background-color: #F0F2F5;
@@ -13,6 +16,9 @@ $night-secondary-color: #cdcdcd;
 $night-background-color: #1F2326;
 $night-content-background: #262A30;
 $night-hover-color:#2B3135;
+
+$solid-color: #bbb;
+$alert-color: #ED5E69;
 
 // アプリタイトルのフォント設定
 $app-title-font: 'Notable', sans-serif;
@@ -27,8 +33,13 @@ body {
   // 通常モードのスタイル
   background-color: $background-color; /* アプリ全体の背景色 */
 
-  a, .text{
+  a, .text {
     color: $secondary-color;
+  }
+
+  .form-control {
+    color: $secondary-color;
+    background-color: $background-content-color;
   }
 
   .primay-text, .logout, #night-mode-toggle, h1, h2, h3, h4, h5, h6 {
@@ -73,17 +84,48 @@ body {
     }
   }
 
+  // paginationのカスタム
+  .pagination {
+    a {
+      color: $main-color;
+      background-color: $background-content-color;
+      border-color: $night-hover-color;
+      &:hover {
+        color: $main-color;
+        background-color: $hover-color;
+      }
+    }
+    .active {
+      span {
+        background-color: $main-color;
+        color: $background-content-color;
+        border-color: $main-color;
+      }
+    }
+  }
 
   // ナイトモードのスタイル
   &.night-mode {
-    background-color: $night-background-color; /* ナイトモードのアプリ全体の背景色 */
+    background-color: $night-background-color;
 
     a, .text {
       color: $night-secondary-color;
     }
 
+
+    // ナイトモードのフォームの色
+    .form-control {
+      color: $night-secondary-color;
+      background-color: $night-content-background;
+    }
+
+    .form-color {
+      color: $night-secondary-color;
+      background-color: $night-content-background;
+    }
+
     .primary-text, .logout, #night-mode-toggle, h1, h2, h3, h4, h5, h6 {
-      color: $night-primary-color; /* ナイトモードのタイトルの文字色 */
+      color: $night-primary-color; 
     }
 
     .sidebar-header {
@@ -121,11 +163,61 @@ body {
     }
 
     .container, .dropdown-menu{
-      background-color: $night-content-background; /* ナイトモードのコンテンツの背景色 */
+      background-color: $night-content-background;
       .hover-effect:hover {
-        background-color:$night-hover-color; /* ナイトモード時のhover */
+        background-color:$night-hover-color;
       }
     }
+
+    // paginationのカスタム
+    .pagination {
+      a {
+        color: $main-color;
+        background-color: $night-content-background;
+        &:hover {
+          color: $main-color;
+          background-color: $night-hover-color;
+        }
+      }
+      .active {
+        span {
+          background-color: $main-color;
+          color: $night-content-background;
+          border-color: $main-color;
+        }
+      }
+      .disabled {
+        span {
+          background-color: $night-hover-color;
+          border-color: $night-hover-color;
+        }
+      }
+    }
+  }
+}
+
+// ボタンの設定
+.btn-main {
+  background-color: $main-color !important;
+  color: white !important;
+  &:hover {
+    background-color: darken($main-color, 10%) !important;
+  }
+}
+
+.btn-accent {
+  background-color: $accent-color !important;
+  color: white !important;
+  &:hover {
+    background-color: darken($accent-color, 10%) !important;
+  }
+}
+
+.btn-delete {
+  background-color: $alert-color !important;
+  color: white !important;
+  &:hover {
+    background-color: darken($alert-color, 10%) !important;
   }
 }
 
@@ -166,7 +258,7 @@ body {
 // フォーム
 
 input, textarea {
-    border: 1px solid #bbb;
+    border: 1px solid $solid-color;
     width: 100%;
     margin-bottom: 15px;
     @include box_sizing;
@@ -178,26 +270,16 @@ input {
 
 // エラー関係
 #error_explanation {
-  color: red;
+  color: $alert-color;
   ul {
-    color: red;
+    color: $alert-color;
     margin: 0 0 30px 0;
   }
 }
 
 .field_with_errors {
   .form-control {
-    color: red;
-  }
-}
-
-// チェックボックス
-.checkbox {
-  margin-top: -10px;
-  margin-bottom: 10px;
-  span {
-    margin-left: 20px;
-    font-weight: normal;
+    color: $alert-color;
   }
 }
 
@@ -214,7 +296,7 @@ input {
 
 // サイドバー
 /* 768px未満の画面ではサイドバーを隠す */
-@media (max-width: 1480px) {
+@media (max-width: 768px) {
   .app-sidebar {
     display: none !important;
   }
@@ -307,6 +389,7 @@ input {
   align-items: center; /* コンテンツを上下中央揃えに */
   margin-bottom: 10px;
   .header {
+    background-color: $main-color !important;
     height: 60px;
     .dropdown-menu {
       position: absolute;

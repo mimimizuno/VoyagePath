@@ -28,9 +28,6 @@ guard :minitest, all_on_start: false do
   watch(%r{^app/helpers/(.*?)_helper\.rb$}) do |matches|
     integration_tests(matches[1])
   end
-  watch('app/views/layouts/application.html.erb') do
-    'test/integration/site_layout_test.rb'
-  end
   watch('app/helpers/sessions_helper.rb') do
     integration_tests << 'test/helpers/sessions_helper_test.rb'
   end
@@ -41,14 +38,6 @@ guard :minitest, all_on_start: false do
   watch('app/controllers/account_activations_controller.rb') do
     'test/integration/users_signup_test.rb'
   end
-  # watch(%r{app/views/users/*}) do
-  #   resource_tests('users') +
-  #   ['test/integration/microposts_interface_test.rb']
-  # end
-  # watch('app/controllers/relationships_controller.rb') do
-  #   ['test/controllers/relationships_controller_test.rb',
-  #    'test/integration/following_test.rb']
-  # end
 end
 
 # 指定のリソースに対応する統合テストを返す
