@@ -1,9 +1,9 @@
-<% if @user.errors.any? %>
+<% if @task.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
-      <%= @user.errors.count %>個のエラー
+      <%= @task.errors.count %>個のエラー
       <ul>
-      <% @user.errors.full_messages.each do |msg| %>
+      <% @task.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

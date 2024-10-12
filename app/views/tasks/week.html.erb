@@ -1,6 +1,6 @@
 <% provide(:title, 'weekly to do lists') %>
 
-<h1><%= @user.user_name %> の週間タスク</h1>
+<h1 class="text-center page-title"><%= @user.user_name %> の週間タスク</h1>
 
 <div class="row">
   <% (@start_date..@end_date).each do |date| %>

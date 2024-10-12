@@ -22,8 +22,9 @@ $alert-color: #ED5E69;
 
 // アプリタイトルのフォント設定
 $app-title-font: 'Notable', sans-serif;
-
-
+h1, h2, h3, h4, h5, h6 {
+  color: $main-color;
+}
 
 // 全体の色とフォント設定
 body {
@@ -34,7 +35,7 @@ body {
   .accent-color{
     color:$accent-color;
   }
-  
+
   // 通常モードのスタイル
   background-color: $background-color; /* アプリ全体の背景色 */
 
@@ -47,7 +48,7 @@ body {
     background-color: $background-content-color;
   }
 
-  .primay-text, .logout, #night-mode-toggle, h1, h2, h3, h4, h5, h6 {
+  .primay-text, .logout, #night-mode-toggle {
     color: $primary-color; /* タイトルの文字色 */
   }
   .sidebar-header {
@@ -94,7 +95,7 @@ body {
     a {
       color: $main-color;
       background-color: $background-content-color;
-      border-color: $night-hover-color;
+      border-color: $hover-color;
       &:hover {
         color: $main-color;
         background-color: $hover-color;
@@ -129,7 +130,7 @@ body {
       background-color: $night-content-background;
     }
 
-    .primary-text, .logout, #night-mode-toggle, h1, h2, h3, h4, h5, h6 {
+    .primary-text, .logout, #night-mode-toggle {
       color: $night-primary-color; 
     }
 
@@ -226,6 +227,11 @@ body {
   }
 }
 
+// ページタイトル
+.page-title {
+  padding-top: 20px;
+}
+
 // タイトル
 #logo {
   font-family: $app-title-font;
@@ -273,7 +279,25 @@ input {
   height: auto !important;
 }
 
-// エラー関係
+// フラッシュ、エラーメッセージ
+.alert-notice {
+  background-color: $main-color;
+  color: white;
+  border-color: darken($main-color, 10%);
+}
+
+.alert-success {
+  background-color: $accent-color;
+  color: white;
+  border-color: darken($accent-color, 10%);
+}
+
+.alert-danger {
+  background-color: $alert-color;
+  color: white;
+  border-color: darken($alert-color, 10%);
+}
+
 #error_explanation {
   color: $alert-color;
   ul {

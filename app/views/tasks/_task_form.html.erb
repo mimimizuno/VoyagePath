@@ -1,6 +1,8 @@
 <div class="card mb-4">
   <div class="card-body">
     <%= form_with(model: [@user, @task], local: true) do |f| %>
+      <%= render 'shared/task_error_messages' %>
+
       <div class="mb-3">
         <%= f.label :title, "タイトル", class: "form-label" %>
         <%= f.text_field :title, class: "form-control form-color" %>
@@ -56,7 +58,11 @@
       </div>
 
       <div class="justify-content-between">
-        <%= f.submit 'タスクの作成', class: "btn btn-accent" %>
+        <% if yield(:title) == "edit to do" %>
+          <%= f.submit 'タスクの更新', class: "btn btn-accent" %>
+        <% else %>
+          <%= f.submit 'タスクの作成', class: "btn btn-accent" %>
+        <% end %>
         <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
       </div>
     <% end %>
