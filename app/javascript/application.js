@@ -5,7 +5,8 @@ import * as bootstrap from "bootstrap"
 
 // javascriptファイルの読み込み
 import "./nightmode";
-import "./graph";
+import "./completion_graph";
+import "./completion_chart";
 import "./repetition";
 import "./sidebartoggle";
 import "./avatarselect";
