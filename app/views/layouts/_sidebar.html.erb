@@ -15,45 +15,47 @@
         <h2 class="username"><%= @user.user_name %></h2>
         <h2 class="username">レベル: <%= @user.level%></h3>
       </div>
-
-      <ul class="nav flex-column">
-        <li class="nav-item hover-effect">
-          <%= link_to @user, class: "nav-link primary-text" do %>
-            <i class="bi bi-house"></i> ダッシュボード
-          <% end %>
-        </li>
-        <li class="nav-item hover-effect">
-          <%= link_to user_tasks_path(@user), class: "nav-link primary-text" do %>
-            <i class="bi bi-check-square"></i> ToDo
-          <% end %>
-        </li>
-        <li class="nav-item hover-effect">
-          <%= link_to users_path, class: "nav-link primary-text" do %>
-            <i class="bi bi-people"></i> ユーザー共有
-          <% end %>
-        </li>
-        <li class="nav-item hover-effect">
-          <a href="#" id="avatar" class="dropdown-toggle nav-link primary-text">
-          <i class="bi bi-emoji-smile"></i> アバター <b class="caret"></b>
-        </a>
-        <ul id="dropdown-menu" class="dropdown-menu">
+      
+      <% if current_user?(@user) %>
+        <ul class="nav flex-column">
           <li class="nav-item hover-effect">
-            <%= link_to avatars_path, class: "nav-link primary-text" do %>
-              <i class="bi bi-emoji-smile"></i> 全てのアバター
+            <%= link_to @user, class: "nav-link primary-text" do %>
+              <i class="bi bi-house"></i> ダッシュボード
             <% end %>
           </li>
           <li class="nav-item hover-effect">
-            <%= link_to user_user_avatars_path(@user), class: "nav-link primary-text" do %>
-              <i class="bi bi-emoji-smile"></i> 所持アバター
+            <%= link_to user_tasks_path(@user), class: "nav-link primary-text" do %>
+              <i class="bi bi-check-square"></i> ToDo
+            <% end %>
+          </li>
+          <li class="nav-item hover-effect">
+            <%= link_to users_path, class: "nav-link primary-text" do %>
+              <i class="bi bi-people"></i> ユーザー共有
+            <% end %>
+          </li>
+          <li class="nav-item hover-effect">
+            <a href="#" id="avatar" class="dropdown-toggle nav-link primary-text">
+            <i class="bi bi-emoji-smile"></i> アバター <b class="caret"></b>
+          </a>
+          <ul id="dropdown-menu" class="dropdown-menu">
+            <li class="nav-item hover-effect">
+              <%= link_to avatars_path, class: "nav-link primary-text" do %>
+                <i class="bi bi-emoji-smile"></i> 全てのアバター
+              <% end %>
+            </li>
+            <li class="nav-item hover-effect">
+              <%= link_to user_user_avatars_path(@user), class: "nav-link primary-text" do %>
+                <i class="bi bi-emoji-smile"></i> 所持アバター
+              <% end %>
+            </li>
+          </ul>
+          <li class="nav-item hover-effect">
+            <%= link_to edit_user_path(@user), class: "nav-link primary-text" do %>
+              <i class="bi bi-gear"></i> 設定
             <% end %>
           </li>
         </ul>
-        <li class="nav-item hover-effect">
-          <%= link_to edit_user_path(@user), class: "nav-link primary-text" do %>
-            <i class="bi bi-gear"></i> 設定
-          <% end %>
-        </li>
-      </ul>
+      <% end %>
 
       <div class="sidebar-footer">
         <button class="night-mode-toggle">

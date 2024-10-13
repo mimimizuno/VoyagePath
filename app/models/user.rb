@@ -59,7 +59,7 @@ class User < ApplicationRecord
     user_avatars.find_by(is_active: true)&.avatar
   end
 
-  # 指定された期間（日付範囲）でタスク達成率を取得
+  # 指定された期間（日付範囲）で毎日のタスク達成率を取得
   def completion_rates_for_period(start_date, end_date)
     (start_date..end_date).map do |date|
       daily_tasks = tasks.where(due_date: date)
@@ -70,17 +70,17 @@ class User < ApplicationRecord
     end
   end
 
-  # 週ごとの達成率
+  # 週の達成率推移をハッシュで取得
   def weekly_completion_rates
     completion_rates_for_period(Date.today.beginning_of_week, Date.today.end_of_week)
   end
 
-  # 月ごとの達成率
+  # 月の達成率推移をハッシュで取得
   def monthly_completion_rates
     completion_rates_for_period(Date.today.beginning_of_month, Date.today.end_of_month)
   end
 
-  # 年ごとの達成率
+  # 一年の達成率推移をハッシュで取得
   def yearly_completion_rates
     completion_rates_for_period(Date.today.beginning_of_year, Date.today.end_of_year)
   end

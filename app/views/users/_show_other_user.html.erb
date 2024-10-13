@@ -1,0 +1,69 @@
+<%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
+<div class="row mt-4">
+  <!-- ユーザー情報 -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">ユーザー情報</div>
+      <div class="card-body">
+        <p>ユーザー名: <%= @user.user_name %></p>
+        <p>レベル: <%= @user.level %></p>
+        <p>次のレベルまで: <%= @user.experience_for_next_level - @user.experience_points %> exp </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 目標 -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">目標</div>
+      <div class="card-body">
+        <p>期限日: <%= @user.goal_due_date %></p>
+        <p>目標: <%= @user.goal %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <!-- 今日の達成率 -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">今日の達成率</div>
+      <div class="card-body">
+        <%= "#{@user.calculate_completion_rate(@tasks_today) * 100} %" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 達成率 -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">達成率</div>
+      <div class="card-body text-center">
+        <div>
+          <button id="weekly-btn" class="btn-main">Weekly</button>
+          <button id="monthly-btn" class="btn-main">Monthly</button>
+          <button id="yearly-btn" class="btn-main">Yearly</button>
+        </div>
+        <div id="completion-chart-container" data-user-id="<%= @user.id %>">
+          <canvas id="completion-chart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- アバター -->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header">アバター</div>
+      <div class="card-body text-center">
+        <% if @user.active_avatar.present? %>
+          <%= image_tag @user.active_avatar.image_path, alt: @user.active_avatar.avatar_name, class: "avatar" %>
+        <% else %>
+          <i class="bi bi-person-circle default-avatar"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

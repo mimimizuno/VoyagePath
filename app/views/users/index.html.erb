@@ -2,15 +2,37 @@
 <h1 class="text-center page-title">ユーザー共有</h1>
 
 <%= will_paginate @users %>
-<ul class="users">
+
+<div class="row">
   <% @users.each do |user| %>
-    <li>
-      <%= link_to user.user_name, user %>
-      <% if current_user.admin? && !current_user?(user) %>
-      | <%= link_to "削除", user, data: { "turbo-method": :delete,
-                                          turbo_confirm: "本当に削除しますか?" } %>
-      <% end %>
-    </li>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <!-- アバター表示 -->
+          <% if user.active_avatar.present? %>
+            <%= image_tag user.active_avatar.image_path, alt: user.active_avatar.avatar_name, class: "avatar mb-3" %>
+          <% else %>
+            <i class="bi bi-person-circle default-avatar mb-3"></i>
+          <% end %>
+          
+          <!-- ユーザー名 -->
+          <h5 class="card-title"><%= link_to user.user_name, user %></h5>
+
+          <!-- レベルとタスク達成率 -->
+          <p class="card-text">
+            レベル：<%= user.level %><br>
+            今日のタスク達成率：<%= (user.calculate_completion_rate(user.tasks.where(due_date: Date.today))) * 100 %> %
+          </p>
+
+          <!-- 削除リンク（管理者のみ） -->
+          <% if current_user.admin? && !current_user?(user) %>
+            <%= link_to "削除", user, class: "btn btn-delete", 
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>
+
 <%= will_paginate @users %>
