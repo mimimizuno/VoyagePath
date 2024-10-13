@@ -35,6 +35,10 @@ body {
   .accent-color{
     color:$accent-color;
   }
+  // アクセントカラー
+  .alert-color{
+    color:$alert-color;
+  }
 
   // 通常モードのスタイル
   background-color: $background-color; /* アプリ全体の背景色 */
@@ -120,6 +124,9 @@ body {
 
 
     // ナイトモードのフォームの色
+    .form-label {
+      color: $night-primary-color;
+    }
     .form-control {
       color: $night-secondary-color;
       background-color: $night-content-background;
@@ -173,6 +180,10 @@ body {
       .hover-effect:hover {
         background-color:$night-hover-color;
       }
+    }
+
+    .dropdown-menu.show {
+      background-color: $night-hover-color;
     }
 
     // paginationのカスタム
