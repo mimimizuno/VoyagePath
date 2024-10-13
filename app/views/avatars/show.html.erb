@@ -1,5 +1,29 @@
 <% provide(:title, 'Avatars details') %>
 
-<h1 class="text-center page-title"><%= @avatar.avatar_name %></h1>
-<p>取得に必要なレベル: <%= @avatar.required_level %></p>
-<%= image_tag @avatar.image_path %>
+<%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <!-- アバター名 -->
+          <h1 class="card-title mb-4"><%= @avatar.avatar_name %></h1>
+
+          <!-- アバター画像 -->
+          <%= image_tag @avatar.image_path, class: "img-fluid avatar-image mb-4" %>
+
+          <!-- 取得に必要なレベル -->
+          <p class="lead">取得に必要なレベル: <%= @avatar.required_level %></p>
+
+          <!-- 取得状況の表示 -->
+          <% if current_user.avatars.include?(@avatar) %>
+            <h3 class="accent-color">取得済</p>
+          <% else %>
+            <h3 class="alert-color">未取得</p>
+            <h4 class="text">取得まであと <%= @avatar.required_level - @user.level %> レベル</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
