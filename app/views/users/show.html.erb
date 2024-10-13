@@ -1,107 +1,11 @@
 <% provide(:title, 'Dashboard') %>
 <h1 class="text-center page-title"><%= @user.user_name %> のダッシュボード</h1>
-<div class="mt-4">
-  <div class="row">
-    <!-- ユーザー情報 -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">ユーザー情報</div>
-        <div class="card-body">
-          <p>ユーザー名: <%= @user.user_name %></p>
-          <p>レベル: <%= @user.level %></p>
-          <p>次のレベルまで: <%= @user.experience_for_next_level - @user.experience_points %> exp </p>
-        </div>
-      </div>
-    </div>
 
-    <!-- 目標 -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">目標</div>
-        <div class="card-body">
-          <p>期限日: <%= @user.goal_due_date %></p>
-          <p>目標: <%= @user.goal %></p>
-          <%= link_to '設定', edit_user_path(@user), class: "btn btn-main" %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-4">
-    <!-- 今日のToDo -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header"><%= Date.today %>のToDo</div>
-        <div class="card-body">
-          <ul class="list-group">
-            <% if @tasks_today.count > 0 %>
-              <% @tasks_today.each do |task| %>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <%= link_to task.title, user_task_path(@user, task) %>
-                  <% if task.completed? %>
-                    <p>達成済み</p>
-                  <% else %>
-                    <p>未達成</p>
-                  <% end %>
-                </li>
-              <% end %>
-            <% else %>
-              タスクがありません
-            <% end %>
-            <%= link_to "タスクの作成", new_user_task_path(@user) %>
-            <%= link_to "今週のタスク", week_user_tasks_path(@user) %>
-          </ul>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 今日の達成率 -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">今日の達成率</div>
-        <div class="card-body">
-          <%= "#{@user.calculate_completion_rate(@tasks_today) * 100} %" %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-4">
-    <!-- 達成率 -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">達成率</div>
-        <div class="card-body text-center">
-          <div>
-            <button id="weekly-btn" class="btn-main">Weekly</button>
-            <button id="monthly-btn" class="btn-main">Monthly</button>
-            <button id="yearly-btn" class="btn-main">Yearly</button>
-          </div>
-          <div id="completion-chart-container" data-user-id="<%= @user.id %>">
-            <canvas id="completion-chart" width="400" height="200"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- アバター -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">アバター</div>
-        <div class="card-body text-center">
-          <% if @user.active_avatar.present? %>
-            <%= image_tag @user.active_avatar.image_path, alt: @user.active_avatar.avatar_name, class: "avatar" %>
-          <% else %>
-            選択されていません
-          <% end %>
-          <div>
-            <%= link_to "所持アバター", user_user_avatars_path(@user) %>
-            <%= link_to "全アバター", avatars_path %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- ログインしてるユーザーページかどうかで場合分け -->
+<% if current_user?(@user) %>
+  <%= render 'show_current_user' %>
+<% else %>
+  <%= render 'show_other_user' %>
+<% end %>
 
 

@@ -11,26 +11,29 @@
 
       <!-- ドロップダウンメニュー -->
       <div class="dropdown-menu dropdown-menu-right" id="navbarAccountMenu">
-        <h3 class="dropdown-header"><%= @user.user_name %> <span>レベル: <%= @user.level %></span></h6>
-        <%= link_to @user, class: "dropdown-item hover-effect text" do %>
-          <i class="bi bi-house"></i> ダッシュボード
+        <!-- ログインしてるユーザーページかどうかで場合分け -->
+        <% if current_user?(@user) %>
+          <h3 class="dropdown-header"><%= @user.user_name %> <span>レベル: <%= @user.level %></span></h6>
+          <%= link_to @user, class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-house"></i> ダッシュボード
+          <% end %>
+          <%= link_to user_tasks_path(@user), class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-check-square"></i> ToDo
+          <% end %>
+          <%= link_to users_path, class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-people"></i> ユーザー共有
+          <% end %>
+          <%= link_to avatars_path, class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-emoji-smile"></i> 全てのアバター
+          <% end %>
+          <%= link_to user_user_avatars_path(@user), class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-emoji-smile"></i> 所持アバター
+          <% end %>
+          <%= link_to edit_user_path(@user), class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-gear"></i> 設定
+          <% end %>
+          <div class="dropdown-divider"></div>
         <% end %>
-        <%= link_to user_tasks_path(@user), class: "dropdown-item hover-effect text" do %>
-          <i class="bi bi-check-square"></i> ToDo
-        <% end %>
-        <%= link_to users_path, class: "dropdown-item hover-effect text" do %>
-          <i class="bi bi-people"></i> ユーザー共有
-        <% end %>
-        <%= link_to avatars_path, class: "dropdown-item hover-effect text" do %>
-          <i class="bi bi-emoji-smile"></i> 全てのアバター
-        <% end %>
-        <%= link_to user_user_avatars_path(@user), class: "dropdown-item hover-effect text" do %>
-          <i class="bi bi-emoji-smile"></i> 所持アバター
-        <% end %>
-        <%= link_to edit_user_path(@user), class: "dropdown-item hover-effect text" do %>
-          <i class="bi bi-gear"></i> 設定
-        <% end %>
-        <div class="dropdown-divider"></div>
         <button class="night-mode-toggle dropdown-item hover-effect text">
           <i class="bi bi-moon-fill"></i> ナイトモード
         </button>

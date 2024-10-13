@@ -15,7 +15,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     # ページ内に pagination があることを確認
     assert_select 'ul.pagination'
     # 表示されているユーザーのリンクを確認
-    first_page_of_users = User.paginate(page: 1, per_page: 25)
+    first_page_of_users = User.paginate(page: 1, per_page: 15)
     first_page_of_users.each do |user|
       assert_select 'a[href=?]', user_path(user), text: user.user_name
       unless user == @admin
