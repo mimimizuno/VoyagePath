@@ -1,0 +1,20 @@
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header">目標</div>
+    <div class="card-body">
+      <h5 class="text">期限日: <%= @user.goal_due_date %></h5>
+      <% days_left = (@user.goal_due_date - Date.today).to_i %>
+      <h5 class="text">
+        <% if days_left >= 0 %>
+          期限まであと <%= days_left %> 日
+        <% else %>
+          期限が過ぎています
+        <% end %>
+      </h5>
+      <h3>目標: <%= @user.goal %></h3>
+      <% if current_user?(@user) %>
+        <%= link_to '設定', edit_user_path(@user), class: "btn btn-main" %>
+      <% end %>
+    </div>
+  </div>
+</div>

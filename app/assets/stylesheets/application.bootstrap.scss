@@ -284,10 +284,10 @@ body {
 // フォーム
 
 input, textarea {
-    border: 1px solid $solid-color;
-    width: 100%;
-    margin-bottom: 15px;
-    @include box_sizing;
+  border: 1px solid $solid-color;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
 }
   
 input {
@@ -430,7 +430,7 @@ input {
 .navbar {
   height: 70px; /* 固定の高さを指定 */
   display: flex;
-  align-items: center; /* コンテンツを上下中央揃えに */
+  align-items: center;
   margin-bottom: 10px;
   .header {
     background-color: $main-color !important;
@@ -464,4 +464,12 @@ input {
       margin: 10px 0; /* ディバイダーの余白 */
     }
   }
+}
+
+// 達成率円グラフ
+#completionRateChart {
+  display: block;
+  margin: 0 auto;
+  height: 350px !important;
+  width: 350px !important;
 }
