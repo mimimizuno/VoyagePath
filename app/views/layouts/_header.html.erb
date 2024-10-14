@@ -17,8 +17,14 @@
           <%= link_to @user, class: "dropdown-item hover-effect text" do %>
             <i class="bi bi-house"></i> ダッシュボード
           <% end %>
+          <%= link_to new_user_task_path(@user), class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-pencil"></i> タスクの作成
+          <% end %>
+          <%= link_to week_user_tasks_path(@user), class: "dropdown-item hover-effect text" do %>
+            <i class="bi bi-check-square"></i> 今週のタスク
+          <% end %>
           <%= link_to user_tasks_path(@user), class: "dropdown-item hover-effect text" do %>
-            <i class="bi bi-check-square"></i> ToDo
+            <i class="bi bi-check-square"></i> 全てのタスク
           <% end %>
           <%= link_to users_path, class: "dropdown-item hover-effect text" do %>
             <i class="bi bi-people"></i> ユーザー共有

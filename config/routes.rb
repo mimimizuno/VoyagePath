@@ -7,14 +7,17 @@ Rails.application.routes.draw do
   resources :users do
     resources :tasks do
       collection do
-        get 'week'
+        get "week"
+        patch "bulk_update"
       end 
     end
     resources :user_avatars, only: [:index, :create, :update]
+
     member do
-      get 'completion_rates'
+      get "completion_rates"
     end
   end
+
   resources :avatars, only: [:index, :show]
   
 end
