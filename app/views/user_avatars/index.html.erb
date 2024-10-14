@@ -12,7 +12,7 @@
             <%= image_tag user_avatar.avatar.image_path, alt: user_avatar.avatar.avatar_name, class: "avatar" %>
 
             <!-- アバター名 -->
-            <h5 class="card-title"><%= label_tag "avatar_id_#{user_avatar.avatar.id}", user_avatar.avatar.avatar_name, class: "text-decoration-none" %></h5>
+            <h5 class="card-title"><%= label_tag "avatar_id_#{user_avatar.avatar.id}", user_avatar.avatar.avatar_name, class: "text mt-2" %></h5>
 
             <!-- ラジオボタン -->
             <%= radio_button_tag :avatar_id, user_avatar.avatar.id, user_avatar.is_active, id: "avatar_id_#{user_avatar.avatar.id}", class: "avatar-radio" %>

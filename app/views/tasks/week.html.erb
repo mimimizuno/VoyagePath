@@ -16,14 +16,17 @@
               <% tasks_for_day.each do |task| %>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div>
-                    <strong><%= task.title %></strong> - <%= task.completed ? '完了' : '未完了' %>
+                    <strong><%= task.title %></strong>
+                    <span class="<%= task.completed ? 'accent-color' : 'main-color' %>">
+                      - <%= task.completed ? '完了' : '未完了' %>
+                    </span>
                   </div>
                   <div>
-                    <%= link_to '詳細', user_task_path(@user, task), class: "btn btn-main" %>
-                    <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-main" %>
+                    <%= link_to '詳細', user_task_path(@user, task), class: "btn btn-main btn-sm" %>
+                    <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-main btn-sm" %>
                     <%= link_to '削除', user_task_path(@user, task), 
                       data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, 
-                      class: "btn btn-delete" %>
+                      class: "btn btn-delete btn-sm" %>
                   </div>
                 </li>
               <% end %>

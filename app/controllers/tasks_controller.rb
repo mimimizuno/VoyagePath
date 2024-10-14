@@ -50,6 +50,14 @@ class TasksController < ApplicationController
     @week_tasks = @user.tasks.where(due_date: @start_date..@end_date)
   end
 
+  # 複数のタスクを同時に更新するアクション
+  def bulk_update
+    tasks_params.each do |id, task_data|
+      task = @user.tasks.find(id)
+      task.update(task_data.permit(:completed))
+    end
+    redirect_to @user, notice: 'タスクが更新されました。'
+  end
 
   private
 
@@ -69,4 +77,9 @@ class TasksController < ApplicationController
   
     params.require(:task).permit(:title, :description, :due_date, :completed).merge(repetition: repetition_data)
   end
+
+  def tasks_params
+    params.require(:tasks)
+  end
+
 end
