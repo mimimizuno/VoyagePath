@@ -1,8 +1,45 @@
 <% provide(:title, "Home") %>
-<main class="container">
-  <div class="row text-center justify-content-center">
-    <div class="col">
-      <h1 class="display-4">VoyagePath</h1>
+
+<div class="row text-center justify-content-center mb-5">
+  <div class="col">
+    <h1 class="display-3 mt-3 logo" id="hometitle">VoyagePath</h1>
+  </div>
+
+  <div class="w-100">
+    <%= image_tag "topimage.png", class: "img-fluid w-100", alt: "トップ画像" %>
+  </div>
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center">
+      <!-- アプリの説明文 -->
+      <h2 class="mt-4 mb-3">あなたのゴールに向かって進もう</h2>
+      <p class="text">
+        VoyagePathは、タスクを管理し、目標を達成するための旅路をサポートするアプリです。<br>
+        日々のタスク管理を通じて、あなたのゴールを確実に達成することができます。
+      </p>
+      <p class="text">
+        あなたのペースで進んで、計画を立てながら夢を実現しましょう。
+      </p>
+
+      <!-- "できること"セクション -->
+      <div class="features mt-5 d-flex flex-column align-items-center"> <!-- Flexboxで中央揃え -->
+        <h2 class="mb-4">できること</h3>
+        <ul class="text-start list-unstyled text">
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>1日のタスク達成率を表示</li>
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>1日のタスク達成率と週の達成率によって経験値が増加、レベルアップ</li>
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>レベルが上がると、選択できるアバターが増加</li>
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>繰り返しタスクは自動的に生成</li>
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>ユーザーのアバター、レベル、1日のタスク達成率を表示</li>
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>お気に入りのアバターを設定して、他のユーザーに自慢</li>
+        </ul>
+      </div>
+
+
+      <!-- 行動を促すボタンの追加 -->
+      <div class="mt-5">
+        <%= link_to "今すぐ始める", signup_path, class: "btn btn-accent btn-lg" %>
+        <%= link_to "ログインする", signup_path, class: "btn btn-main btn-lg" %>
+      </div>
     </div>
   </div>
-</main>
+</div>

@@ -58,9 +58,14 @@ body {
   .sidebar-header {
     background-color: $hover-color;
   }
-  #logo {
+    
+  // タイトル
+  .logo {
     color: $primary-color;
+    font-family: $app-title-font;
+    font-size: 1.5rem;
   }
+
   .dropdown-menu {
     background-color: $background-content-color;
   }
@@ -145,7 +150,7 @@ body {
       background-color: $night-hover-color;
     }
 
-    #logo {
+    .logo {
       color: $night-primary-color;
     }
 
@@ -213,6 +218,15 @@ body {
   }
 }
 
+#hometitle {
+  font-size: 5rem;
+}
+.page-content {
+  .row {
+    padding-bottom: 60px;
+  }
+}
+
 // ボタンの設定
 .btn-main {
   background-color: $main-color !important;
@@ -248,11 +262,6 @@ body {
   padding-top: 20px;
 }
 
-// タイトル
-#logo {
-  font-family: $app-title-font;
-  font-size: 1.5rem;
-}
 
 // アバターのアイコン
 .avatar {
@@ -349,6 +358,9 @@ input {
   .app-sidebar {
     display: none !important;
   }
+  #hometitle {
+    font-size: 3rem;
+  }
 }
 
 .sidebar {
@@ -374,7 +386,7 @@ input {
   .sidebar-title {
     margin-top: 20px;
     margin-bottom: 20px;
-    #logo {
+    .logo {
       font-size: 1.8rem;
     }
   }
