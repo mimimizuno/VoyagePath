@@ -22,7 +22,7 @@
         <!-- サイドバー -->
         <%= render 'layouts/sidebar' %>
         <!-- メイン -->
-        <main class="col-12 col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main class="<%= "col-md-9" unless ( yield(:title) == 'Home' || yield(:title) == 'Log in' || yield(:title) == 'Sign up' ) %>">
           <!-- ヘッダー -->
           <%= render 'layouts/header' %>
           <!-- コンテンツ -->
