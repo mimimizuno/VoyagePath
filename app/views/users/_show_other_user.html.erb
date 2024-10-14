@@ -1,0 +1,20 @@
+<%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
+<div class="row mt-4">
+  <!-- ユーザー情報 -->
+  <%= render 'users/show_details/user_information' %>
+
+  <!-- 目標 -->
+  <%= render 'users/show_details/goals' %>
+</div>
+
+<div class="row mt-4">
+  <!-- 今日の達成率 -->
+  <%= render 'users/show_details/completion_today' %>
+
+  <!-- 達成率 -->
+  <%= render 'users/show_details/completion_graph' %>
+
+  <!-- アバター -->
+  <%= render 'users/show_details/user_avatar' %>
+
+</div>

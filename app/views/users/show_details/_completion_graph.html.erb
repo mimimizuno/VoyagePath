@@ -1,0 +1,15 @@
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header">達成率推移</div>
+    <div class="card-body">
+      <div>
+        <button id="weekly-btn" class="btn-main">週</button>
+        <button id="monthly-btn" class="btn-main">月</button>
+        <button id="yearly-btn" class="btn-main">年</button>
+      </div>
+      <div id="completion-chart-container" data-user-id="<%= @user.id %>">
+        <canvas id="completion-chart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

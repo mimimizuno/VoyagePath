@@ -1,14 +1,31 @@
 <% provide(:title, 'My avatars') %>
-<h1 class="text-center page-title">所持アバター</h1>
 
-<%= form_with url: user_user_avatar_path(@user, :avatar_id), method: :put, local: true do %>
-  <ul>
-    <% @user.user_avatars.each do |user_avatar| %>
-      <li>
-        <%= radio_button_tag :avatar_id, user_avatar.avatar.id, user_avatar.is_active, id: "avatar_id_#{user_avatar.avatar.id}", class: "avatar-radio" %>
-        <%= label_tag "avatar_id_#{user_avatar.avatar.id}", user_avatar.avatar.avatar_name %>
-      </li>
-    <% end %>
-  </ul>
-  <%= submit_tag "更新" %>
-<% end %>
+<div class="row">
+  <h1 class="text-center page-title">所持アバター</h1>
+
+  <%= form_with url: user_user_avatar_path(@user, :avatar_id), method: :put, local: true do %>
+    <div class="row">
+      <% @user.user_avatars.each do |user_avatar| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <!-- アバター画像 -->
+              <%= image_tag user_avatar.avatar.image_path, alt: user_avatar.avatar.avatar_name, class: "avatar" %>
+
+              <!-- アバター名 -->
+              <h5 class="card-title"><%= label_tag "avatar_id_#{user_avatar.avatar.id}", user_avatar.avatar.avatar_name, class: "text mt-2" %></h5>
+
+              <!-- ラジオボタン -->
+              <%= radio_button_tag :avatar_id, user_avatar.avatar.id, user_avatar.is_active, id: "avatar_id_#{user_avatar.avatar.id}", class: "avatar-radio" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 更新ボタン -->
+    <div class="text-center mt-4">
+      <%= submit_tag "更新", class: "btn btn-main btn-lg" %>
+    </div>
+  <% end %>
+</div>

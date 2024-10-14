@@ -1,0 +1,12 @@
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header">ユーザー情報</div>
+    <div class="card-body">
+      <p>ユーザー名: <%= @user.user_name %></p>
+      <p>レベル: <%= @user.level %></p>
+      <% if current_user?(@user) %>
+        <p>次のレベルまで: <%= @user.experience_for_next_level - @user.experience_points %> exp </p>
+      <% end %>
+    </div>
+  </div>
+</div>

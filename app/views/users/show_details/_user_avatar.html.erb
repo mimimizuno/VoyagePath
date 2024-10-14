@@ -1,0 +1,18 @@
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header">アバター</div>
+    <div class="card-body">
+      <% if @user.active_avatar.present? %>
+        <%= image_tag @user.active_avatar.image_path, alt: @user.active_avatar.avatar_name, class: "avatar" %>
+      <% else %>
+        <i class="bi bi-person-circle default-avatar"></i>
+      <% end %>
+      <% if current_user?(@user) %>
+        <div>
+          <%= link_to "所持アバター", user_user_avatars_path(@user), class: "btn btn-main mt-3"%>
+          <%= link_to "全アバター", avatars_path, class: "btn btn-main mt-3" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

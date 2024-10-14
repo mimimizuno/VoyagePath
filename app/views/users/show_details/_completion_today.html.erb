@@ -1,0 +1,8 @@
+<div class="col-md-6" id="completion-rate-card">
+  <div class="card">
+    <div class="card-header">今日の達成率</div>
+    <div class="card-body" data-completion-rate="<%= @user.calculate_completion_rate(@tasks_today) * 100 %>">
+      <canvas id="completionRateChart"></canvas>
+    </div>
+  </div>
+</div>

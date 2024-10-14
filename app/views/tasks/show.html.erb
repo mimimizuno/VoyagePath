@@ -1,74 +1,76 @@
 <% provide(:title, 'タスクの詳細') %>
-<h1 class="text-center page-title">タスクの詳細</h1>
+<div class="row">
+  <h1 class="text-center page-title">タスクの詳細</h1>
 
-<!-- タイトルカード -->
-<div class="card mb-4 shadow-sm">
-  <div class="card-header">
-    タイトル
-  </div>
-  <div class="card-body">
-    <p><%= @task.title %></p>
-  </div>
-</div>
-
-<!-- 説明カード -->
-<div class="card mb-4 shadow-sm">
-  <div class="card-header">
-    説明
-  </div>
-  <div class="card-body">
-    <p><%= @task.description %></p>
-  </div>
-</div>
-
-<!-- 締切日カード -->
-<div class="card mb-4 shadow-sm">
-  <div class="card-header">
-    締切日
-  </div>
-  <div class="card-body">
-    <p><%= @task.due_date %></p>
-  </div>
-</div>
-
-<!-- 達成状況カード -->
-<div class="card mb-4 shadow-sm">
-  <div class="card-header">
-    達成
-  </div>
-  <div class="card-body">
-    <p><%= @task.completed ? '完了' : '未完了' %></p>
-  </div>
-</div>
-
-<!-- 繰り返し情報カード -->
-<% if @task.repetition.present? %>
+  <!-- タイトルカード -->
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
-      繰り返しタイプ
+      タイトル
     </div>
     <div class="card-body">
-      <% repetition = JSON.parse(@task.repetition) rescue {} %>
-      <p><%= repetition['type'] == 'weekly' ? '週次' : '月次' %></p>
+      <p><%= @task.title %></p>
     </div>
   </div>
 
+  <!-- 説明カード -->
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
-      繰り返しの日
+      説明
     </div>
     <div class="card-body">
-      <% if repetition['type'] == 'weekly' %>
-        <p><%= translate_days_to_japanese(repetition['days']) %> 曜日</p>
-      <% elsif repetition['type'] == 'monthly' %>
-        <p><%= repetition['days'].join(', ') %> 日</p>
-      <% end %>
+      <p><%= @task.description %></p>
     </div>
   </div>
-<% end %>
 
-<!-- 編集と戻るボタン -->
-<div class="d-flex justify-content-between">
-  <%= link_to '編集', edit_user_task_path(@user, @task), class: "btn btn-main" %>
-  <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
+  <!-- 締切日カード -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      締切日
+    </div>
+    <div class="card-body">
+      <p><%= @task.due_date %></p>
+    </div>
+  </div>
+
+  <!-- 達成状況カード -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      達成
+    </div>
+    <div class="card-body">
+      <p><%= @task.completed ? '完了' : '未完了' %></p>
+    </div>
+  </div>
+
+  <!-- 繰り返し情報カード -->
+  <% if @task.repetition.present? %>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        繰り返しタイプ
+      </div>
+      <div class="card-body">
+        <% repetition = JSON.parse(@task.repetition) rescue {} %>
+        <p><%= repetition['type'] == 'weekly' ? '週次' : '月次' %></p>
+      </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        繰り返しの日
+      </div>
+      <div class="card-body">
+        <% if repetition['type'] == 'weekly' %>
+          <p><%= translate_days_to_japanese(repetition['days']) %> 曜日</p>
+        <% elsif repetition['type'] == 'monthly' %>
+          <p><%= repetition['days'].join(', ') %> 日</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- 編集と戻るボタン -->
+  <div class="d-flex justify-content-between">
+    <%= link_to '編集', edit_user_task_path(@user, @task), class: "btn btn-main" %>
+    <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
+  </div>
 </div>

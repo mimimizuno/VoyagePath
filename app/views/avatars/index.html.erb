@@ -1,9 +1,22 @@
 <% provide(:title, 'All avatars') %>
-<h1 class="text-center page-title">アバター</h1>
-<ul>
+<h1 class="text-center page-title">アバター一覧</h1>
+
+<div class="row">
   <% @avatars.each do |avatar| %>
-    <li>
-      <%= link_to avatar.avatar_name, avatar_path(avatar) %>
-    </li>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <!-- アバター画像 -->
+          <%= image_tag avatar.image_path, alt: avatar.avatar_name, class: "avatar mb-3" %>
+          <!-- アバター名 -->
+          <h5 class="card-title"><%= link_to avatar.avatar_name, avatar_path(avatar), class: "text-decoration-none" %></h5>
+          <% if current_user.avatars.include?(avatar) %>
+            <p class="accent-color">取得済</p>
+          <% else %>
+            <p class="alert-color">未取得</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>

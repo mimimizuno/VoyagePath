@@ -1,0 +1,59 @@
+  <div class="row mt-4">
+    <!-- ユーザー情報 -->
+    <%= render 'users/show_details/user_information' %>
+    <!-- 目標 -->
+    <%= render 'users/show_details/goals' %>
+  </div>
+
+  <div class="row mt-4">
+    <!-- 今日のToDo -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header"><%= Date.today %>のToDo</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <% if @tasks_today.count > 0 %>
+              <%= form_with(url: bulk_update_user_tasks_path(@user), method: :patch, local: true) do |f| %> <!-- 複数タスクをまとめたフォーム -->
+                <% @tasks_today.each do |task| %>
+                  <li class="card mb-3">
+                    <%= link_to task.title, user_task_path(@user, task), class: "card-header" %>
+                    <div class="card-body">
+                      <% if task.completed? %>
+                        <h5 class="accent-color">完了</h5>
+                      <% else %>
+                        <h5 class="main-color">未完了</h5>
+                      <% end %>
+                      <%= f.check_box "tasks[#{task.id}][completed]", checked: task.completed?, id: "task_#{task.id}", class: "checkbox" %>
+                      <div>
+                        <%= link_to '詳細', user_task_path(@user, task), class: "btn btn-main btn-sm" %>
+                        <%= link_to '編集', edit_user_task_path(@user, task), class: "btn btn-main btn-sm" %>
+                        <%= link_to '削除', user_task_path(@user, task), 
+                          data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, 
+                          class: "btn btn-delete btn-sm" %>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+                <%= f.submit '更新', class: 'btn btn-accent mt-4' %>
+              <% end %>
+            <% else %>
+              <li class="list-group-item">タスクがありません</li>
+            <% end %>
+            <%= link_to "タスクの作成", new_user_task_path(@user), class: "btn btn-main mt-3" %>
+            <%= link_to "今週のタスク", week_user_tasks_path(@user), class: "btn btn-main mt-3" %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 今日の達成率 -->
+    <%= render 'users/show_details/completion_today' %>
+  </div>
+
+  <div class="row mt-4">
+    <!-- 達成率 -->
+    <%= render 'users/show_details/completion_graph' %>
+
+    <!-- アバター -->
+    <%= render 'users/show_details/user_avatar' %>
+  </div>

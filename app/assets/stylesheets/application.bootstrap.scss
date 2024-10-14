@@ -35,6 +35,10 @@ body {
   .accent-color{
     color:$accent-color;
   }
+  // アクセントカラー
+  .alert-color{
+    color:$alert-color;
+  }
 
   // 通常モードのスタイル
   background-color: $background-color; /* アプリ全体の背景色 */
@@ -54,9 +58,14 @@ body {
   .sidebar-header {
     background-color: $hover-color;
   }
-  #logo {
+    
+  // タイトル
+  .logo {
     color: $primary-color;
+    font-family: $app-title-font;
+    font-size: 1.5rem;
   }
+
   .dropdown-menu {
     background-color: $background-content-color;
   }
@@ -120,6 +129,9 @@ body {
 
 
     // ナイトモードのフォームの色
+    .form-label {
+      color: $night-primary-color;
+    }
     .form-control {
       color: $night-secondary-color;
       background-color: $night-content-background;
@@ -138,7 +150,7 @@ body {
       background-color: $night-hover-color;
     }
 
-    #logo {
+    .logo {
       color: $night-primary-color;
     }
 
@@ -175,6 +187,10 @@ body {
       }
     }
 
+    .dropdown-menu.show {
+      background-color: $night-hover-color;
+    }
+
     // paginationのカスタム
     .pagination {
       a {
@@ -199,6 +215,15 @@ body {
         }
       }
     }
+  }
+}
+
+#hometitle {
+  font-size: 5rem;
+}
+.page-content {
+  .row {
+    padding-bottom: 60px;
   }
 }
 
@@ -227,22 +252,26 @@ body {
   }
 }
 
+// チェックボックス
+.checkbox {
+  height: 25px !important;
+}
+
 // ページタイトル
 .page-title {
   padding-top: 20px;
 }
 
-// タイトル
-#logo {
-  font-family: $app-title-font;
-  font-size: 1.5rem;
-}
 
 // アバターのアイコン
 .avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+}
+
+.default-avatar {
+  font-size: 100px;
 }
 
 // ドロップダウンのカーソル設定
@@ -269,10 +298,10 @@ body {
 // フォーム
 
 input, textarea {
-    border: 1px solid $solid-color;
-    width: 100%;
-    margin-bottom: 15px;
-    @include box_sizing;
+  border: 1px solid $solid-color;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
 }
   
 input {
@@ -329,6 +358,9 @@ input {
   .app-sidebar {
     display: none !important;
   }
+  #hometitle {
+    font-size: 3rem;
+  }
 }
 
 .sidebar {
@@ -354,7 +386,7 @@ input {
   .sidebar-title {
     margin-top: 20px;
     margin-bottom: 20px;
-    #logo {
+    .logo {
       font-size: 1.8rem;
     }
   }
@@ -415,7 +447,7 @@ input {
 .navbar {
   height: 70px; /* 固定の高さを指定 */
   display: flex;
-  align-items: center; /* コンテンツを上下中央揃えに */
+  align-items: center;
   margin-bottom: 10px;
   .header {
     background-color: $main-color !important;
@@ -449,4 +481,12 @@ input {
       margin: 10px 0; /* ディバイダーの余白 */
     }
   }
+}
+
+// 達成率円グラフ
+#completionRateChart {
+  display: block;
+  margin: 0 auto;
+  height: 350px !important;
+  width: 350px !important;
 }
