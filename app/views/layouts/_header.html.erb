@@ -13,7 +13,8 @@
       <div class="dropdown-menu dropdown-menu-right" id="navbarAccountMenu">
         <!-- ログインしてるユーザーページかどうかで場合分け -->
         <% if current_user?(@user) %>
-          <h3 class="dropdown-header"><%= @user.user_name %> <span>レベル: <%= @user.level %></span></h6>
+          <h3 class="dropdown-header"><%= @user.user_name %></h6>
+          <p class="text">レベル: <%= @user.level %></p>          
           <%= link_to @user, class: "dropdown-item hover-effect text" do %>
             <i class="bi bi-house"></i> ダッシュボード
           <% end %>
