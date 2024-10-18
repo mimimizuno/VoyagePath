@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   def create
     @task = @user.tasks.build(task_params)
     if @task.save
-      redirect_to user_tasks_path(@user), notice: 'タスクの生成に成功しました'
+      redirect_to user_task_path(@user, @task), notice: 'タスクの生成に成功しました'
     else
       render 'new', status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to user_tasks_path(@user), notice: 'タスクが削除されました'
+    redirect_to @user, notice: 'タスクが削除されました'
   end
 
   # 週ごとのタスクを表示するアクション
@@ -68,6 +68,7 @@ class TasksController < ApplicationController
   def set_task
     @task = @user.tasks.find(params[:id])
   end
+
 
   def task_params
     repetition_data = {
