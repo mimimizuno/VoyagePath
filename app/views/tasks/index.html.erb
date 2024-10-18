@@ -6,11 +6,12 @@
   <% @tasks.each do |task| %>
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
-        <div class="card-body">
           <div class="card-header"><%= task.title %></div>
+          <div class="card-body">
           <p class="card-text"><strong>説明:</strong> <%= task.description %></p>
           <p class="card-text"><strong>締切日:</strong> <%= task.due_date %></p>
-          <p class="card-text"><strong>達成状況:</strong> <%= task.completed ? "完了" : "未完了" %></p>
+          <p class="card-text"><strong>達成状況:</strong> <span class="<%= task.completed ? 'accent-color' : 'main-color' %>">
+                      - <%= task.completed ? '完了' : '未完了' %></span>
 
           <% if task.repetition.present? %>
             <p class="card-text">

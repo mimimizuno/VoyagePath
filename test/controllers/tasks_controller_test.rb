@@ -46,10 +46,15 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   # create アクション
   test "should create task" do
-    assert_difference('Task.count') do
-      post user_tasks_url(@user), params: { task: { title: 'New Task', due_date: Date.today } }
+    task_params = { task: { title: 'New Task', due_date: Date.today } }
+  
+    assert_difference('Task.count', 1) do
+      post user_tasks_url(@user), params: task_params
     end
-    assert_redirected_to user_tasks_url(@user)
+  
+    created_task = Task.last  # 新しく作成されたタスクを取得
+  
+    assert_redirected_to user_task_url(@user, created_task)
   end
 
   # show アクション
@@ -75,7 +80,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Task.count', -1) do
       delete user_task_url(@user, @task)
     end
-    assert_redirected_to user_tasks_url(@user)
+    assert_redirected_to @user
   end
 
   # 今週の表を表示するテスト

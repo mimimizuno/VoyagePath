@@ -32,10 +32,10 @@ class ApplicationController < ActionController::Base
       current_user.save
       # debugger
       if current_user.experience_points > initial_experience_points
-        flash.now[:notice] = "経験値が更新されました!"
+        flash.now[:experience] = "経験値が更新されました!"
       end
       if current_user.level > initial_level
-        flash.now[:notice] = "おめでとうござます! レベルアップ! レベルが#{current_user.level}になりました!"
+        flash.now[:level_up] = "おめでとうござます! レベルアップ! レベルが#{current_user.level}になりました!"
       end
     end
 

@@ -2,6 +2,7 @@
 <div class="row">
   <h1 class="text-center page-title">タスクの詳細</h1>
 
+  <div class="col-md-12">
   <!-- タイトルカード -->
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
@@ -13,7 +14,7 @@
   </div>
 
   <!-- 説明カード -->
-  <div class="card mb-4 shadow-sm">
+  <div class="card mb-4">
     <div class="card-header">
       説明
     </div>
@@ -71,6 +72,8 @@
   <!-- 編集と戻るボタン -->
   <div class="d-flex justify-content-between">
     <%= link_to '編集', edit_user_task_path(@user, @task), class: "btn btn-main" %>
-    <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-secondary" %>
+    <%= link_to 'ダッシュボード', @user, class: "btn btn-main" %>
+    <%= link_to '今週のタスク',week_user_tasks_path(@user), class: "btn btn-main" %>
+  </div>
   </div>
 </div>

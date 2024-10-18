@@ -1,15 +1,5 @@
 # 本番環境用のseed
 # RAILS_ENV=production rails db:seed:load DIR=db/seeds_production.rb
-User.create!(user_name: "sososo",
-             email: "testaccount@example.com",
-             password: "password",
-             password_confirmation: "password",
-             goal: "Do my best",
-             goal_due_date: Date.today,
-             level: 49,
-             experience_points: 4890,
-             admin: true
-            )
 # avatarsの追加
 avatars = [
   { avatar_name: '犬1', required_level: 1, image_name: 'dog1.jpg' },

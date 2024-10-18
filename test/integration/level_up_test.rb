@@ -32,7 +32,7 @@ class LevelUpTest < ActionDispatch::IntegrationTest
     # レベルの上昇
     assert_equal 2, @user.level
     # レベルが上昇したことによるflashの表示
-    assert_equal "おめでとうござます! レベルアップ! レベルが2になりました!", flash[:notice]
+    assert_equal "おめでとうござます! レベルアップ! レベルが2になりました!", flash[:level_up]
     # 経験値の引き継ぎの確認
     assert @user.experience_points > 0
   end
