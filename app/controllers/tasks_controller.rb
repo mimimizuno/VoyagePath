@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
   before_action :correct_user
+  before_action :store_location_page, only: [:new, :edit]
 
   def index
     @tasks = @user.tasks.order(due_date: :desc).paginate(page: params[:page], per_page: 5 )
@@ -18,7 +19,8 @@ class TasksController < ApplicationController
   def create
     @task = @user.tasks.build(task_params)
     if @task.save
-      redirect_to user_tasks_path(@user), notice: 'タスクの生成に成功しました'
+      redirect_to session[:forwarding_url] || @user, notice: 'タスクの生成に成功しました'
+      session.delete(:forwarding_url)
     else
       render 'new', status: :unprocessable_entity
     end
@@ -29,7 +31,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to user_task_path(@user, @task), notice: 'タスクの編集に成功しました'
+      redirect_to session[:forwarding_url] || @user, notice: 'タスクの編集に成功しました'
+      session.delete(:forwarding_url)
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -67,6 +70,11 @@ class TasksController < ApplicationController
 
   def set_task
     @task = @user.tasks.find(params[:id])
+  end
+
+  # new, editの前のページの情報を記録
+  def store_location_page
+    session[:forwarding_url] = request.original_url if request.get?
   end
 
   def task_params
