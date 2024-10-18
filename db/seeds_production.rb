@@ -1,13 +1,13 @@
 # 本番環境用のseed
 # RAILS_ENV=production rails db:seed:load DIR=db/seeds_production.rb
 User.create!(user_name: "sososo",
-             email: "testuser@example.com",
+             email: "testaccount@example.com",
              password: "password",
              password_confirmation: "password",
              goal: "Do my best",
              goal_due_date: Date.today,
              level: 49,
-             experience_points: 4990,
+             experience_points: 4890,
              admin: true
             )
 # avatarsの追加
