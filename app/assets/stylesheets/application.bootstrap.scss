@@ -309,13 +309,13 @@ input {
 }
 
 // フラッシュ、エラーメッセージ
-.alert-notice {
+.alert-notice, .alert-success, .alert-experience {
   background-color: $main-color;
   color: white;
   border-color: darken($main-color, 10%);
 }
 
-.alert-success {
+.alert-level_up {
   background-color: $accent-color;
   color: white;
   border-color: darken($accent-color, 10%);
@@ -365,7 +365,6 @@ input {
 
 .sidebar {
   position: fixed;
-  width: 250px;
   height: 100vh;
   display: flex;
   flex-direction: column;
