@@ -19,6 +19,7 @@ class TasksController < ApplicationController
     @task = @user.tasks.build(task_params)
     if @task.save
       redirect_to user_task_path(@user, @task), notice: 'タスクの生成に成功しました'
+      repetition_check
     else
       render 'new', status: :unprocessable_entity
     end
@@ -30,6 +31,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       redirect_to user_task_path(@user, @task), notice: 'タスクの編集に成功しました'
+      repetition_check
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -71,12 +73,25 @@ class TasksController < ApplicationController
 
 
   def task_params
-    repetition_data = {
-      type: params[:task][:repetition_type],
-      days: params[:task][:repetition_days]
-    }.to_json
-  
+    if params[:task][:repetition_days] != nil
+      repetition_data = {
+        type: params[:task][:repetition_type],
+        days: params[:task][:repetition_days]
+      }.to_json
+    else 
+      repetition_data = nil
+    end
     params.require(:task).permit(:title, :description, :due_date, :completed).merge(repetition: repetition_data)
+  end
+
+  # 繰り返し処理の生成
+  def repetition_check
+    initial_tasks_count = @user.tasks.count
+    Task.generate_tasks_for_user(@user)
+    @user.update(last_task_update_at: Date.today)
+    if @user.tasks.count > initial_tasks_count
+      flash[:notice] = "繰り返しのタスクが生成されました"
+    end
   end
 
   def tasks_params
